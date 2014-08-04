@@ -32,7 +32,7 @@ public class ConfigurationFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         lv = (ExpandableListView) view.findViewById(R.id.lv);
         final OptionsAdapter adapter = new OptionsAdapter(getActivity());
-        adapter.setContent(handler.getFlattenedOptions());
+        adapter.setContent(handler.getFlattenedOptions(), handler.getSettings());
         lv.setAdapter(adapter);
         lv.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
             @Override
@@ -42,6 +42,7 @@ public class ConfigurationFragment extends Fragment {
                     case FlattenedOptions.FlatOptionsItem.TYPE_FIELD:
                         FlattenedOptions.MethodFieldItem item = adapter.getGroup(groupPosition).methodFieldItem; //currently the
                         settings.put(item.getPair(), item.fieldOptions.get(childPosition));
+                        adapter.notifyDataSetChanged();
                         break;
                     default:
                         break;

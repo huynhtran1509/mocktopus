@@ -3,7 +3,7 @@ package com.lacronicus.mocktopus.core.mocktopus.options;
 /**
  * Created by fdoyle on 8/4/14.
  */
-public class Option{
+public class Option {
     Object value;
     String description;
 
@@ -31,11 +31,19 @@ public class Option{
         return String.valueOf(value);
     }
 
+
+    //rethink equality here. do i only need to care about values, or should descriptions matter too?
     @Override
     public boolean equals(Object o) {
-        if(o instanceof Option) {
+        if (o != null && o instanceof Option) {
             Option option = (Option) o;
-            return value.equals(option.value) && description.equals(option.description);
+            if (value != null && description != null) {
+                return value.equals(option.value) && description.equals(option.description);
+            } else if (value != null) {
+                return value.equals(option.value);
+            } else if (option.value == null) {
+                return true;
+            } else return false;
         } else {
             return false;
         }

@@ -66,7 +66,7 @@ public class FieldOptionsListBuilder {
         }
 
         returnList.addAll(params.getOptionsForType(String.class));
-        returnList.add(null);
+        returnList.add(Option.nullOption());
         return returnList;
     }
 

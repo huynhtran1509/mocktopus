@@ -1,6 +1,7 @@
 package com.lacronicus.mocktopus.core.mocktopus;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,6 +9,7 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.TextView;
 
 import com.lacronicus.mocktopus.core.R;
+import com.lacronicus.mocktopus.core.mocktopus.options.Option;
 import com.lacronicus.mocktopus.core.mocktopus.view.ItemClassView;
 import com.lacronicus.mocktopus.core.mocktopus.view.ItemFieldView;
 import com.lacronicus.mocktopus.core.mocktopus.view.ItemMethodView;
@@ -18,6 +20,7 @@ import com.lacronicus.mocktopus.core.mocktopus.view.ItemOptionView;
  */
 public class OptionsAdapter extends BaseExpandableListAdapter {
     FlattenedOptions options;
+    FieldSettings settings;
 
     Context c;
     LayoutInflater inflater;
@@ -27,8 +30,9 @@ public class OptionsAdapter extends BaseExpandableListAdapter {
         inflater = LayoutInflater.from(c);
     }
 
-    public void setContent(FlattenedOptions options) {
+    public void setContent(FlattenedOptions options, FieldSettings settings) {
         this.options = options;
+        this.settings = settings;
     }
 
 
@@ -129,6 +133,7 @@ public class OptionsAdapter extends BaseExpandableListAdapter {
     @Override
     public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
         FlattenedOptions.FlatOptionsItem item = options.itemList.get(groupPosition);
+
         TextView t = new TextView(c);
         t.setPadding(20, 20, 20, 20);
         FlattenedOptions.FlatOptionsItem group = getGroup(groupPosition);
@@ -148,8 +153,14 @@ public class OptionsAdapter extends BaseExpandableListAdapter {
                 } else {
                     optionView = (ItemOptionView) convertView;
                 }
-                Object option = group.methodFieldItem.fieldOptions.get(childPosition);
+                Option option = group.methodFieldItem.fieldOptions.get(childPosition);
                 optionView.text.setText(String.valueOf(option));
+                Option currentOption = settings.get(item.methodFieldItem.method, item.methodFieldItem.field);
+                if(option.equals(currentOption)) {
+                    optionView.setBackgroundColor(c.getResources().getColor(R.color.cyan200));
+                } else {
+                    optionView.setBackgroundColor(c.getResources().getColor(R.color.white));
+                }
                 return optionView;
             case FlattenedOptions.FlatOptionsItem.TYPE_INVALID:
             default:
