@@ -134,9 +134,12 @@ public class OptionsAdapter extends BaseExpandableListAdapter {
     @Override
     public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
         FlattenedOptions.FlatOptionsItem item = options.itemList.get(groupPosition);
-
-        TextView t = new TextView(c);
-        t.setPadding(20, 20, 20, 20);
+        ItemOptionView optionView;//this is just a textview for all options, break it out into multiples if that ever becomes necessary
+        if(convertView == null) {
+            optionView = (ItemOptionView) inflater.inflate(R.layout.mock_item_option, parent, false);
+        } else {
+            optionView = (ItemOptionView) convertView;
+        }
         FlattenedOptions.FlatOptionsItem group = getGroup(groupPosition);
         switch (group.getType()) {
             case FlattenedOptions.FlatOptionsItem.TYPE_METHOD:
@@ -148,12 +151,6 @@ public class OptionsAdapter extends BaseExpandableListAdapter {
             case FlattenedOptions.FlatOptionsItem.TYPE_CLASS:
                 break;
             case FlattenedOptions.FlatOptionsItem.TYPE_FIELD:
-                ItemOptionView optionView;
-                if(convertView == null) {
-                    optionView = (ItemOptionView) inflater.inflate(R.layout.mock_item_option, parent, false);
-                } else {
-                    optionView = (ItemOptionView) convertView;
-                }
                 Option option = group.methodFieldItem.fieldOptions.get(childPosition);
                 optionView.text.setText(String.valueOf(option));
                 Option currentOption = settings.get(item.methodFieldItem.method, item.methodFieldItem.field);
@@ -167,7 +164,7 @@ public class OptionsAdapter extends BaseExpandableListAdapter {
             default:
                 break;
         }
-        return t;
+        return optionView;
     }
 
     @Override

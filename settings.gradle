@@ -1,1 +1,1 @@
-include ':app', ':mocktopus-core'
+include ':app', ':mocktopus-core', ':mocktopus-annotations'

@@ -2,12 +2,12 @@ package com.lacronicus.mocktopus.core.mocktopus;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Handler;
 import android.util.Pair;
 
 import com.lacronicus.mocktopus.core.mocktopus.invocationhandler.MockInvocationHandler;
 import com.lacronicus.mocktopus.core.mocktopus.params.MocktopusParams;
 
-import java.lang.reflect.Proxy;
 import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.Map;
@@ -81,11 +81,16 @@ public class Mocktopus {
         activity.startActivityForResult(i, CONFIG_REQUEST_CODE);
     }
 
-    public static void onActivityResult(Activity activity, int requestCode, int resultCode, Intent data) {
+    public static void onActivityResult(final Activity activity, int requestCode, int resultCode, Intent data) {
         switch (requestCode) {
             case CONFIG_REQUEST_CODE:
                 if (resultCode == Activity.RESULT_OK) {
-                    activity.recreate();
+                    new Handler().post(new Runnable() {//fix for nexus 7. why does this work?
+                        @Override
+                        public void run() {
+                            activity.recreate();
+                        }
+                    });
                 }
                 break;
         }

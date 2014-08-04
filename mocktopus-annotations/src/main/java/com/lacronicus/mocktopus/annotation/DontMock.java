@@ -1,5 +1,4 @@
-package com.lacronicus.mocktopus.core.mocktopus.annotation;
-
+package com.lacronicus.mocktopus.annotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -7,14 +6,14 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Created by fdoyle on 6/20/14.
- * param: value to use as fixed value
+ * Created by fdoyle on 7/24/14.
  *
- * //todo change this to NumberFixed?
+ * tells mocktopus to ignore a field
+ * //todo implement
  */
 @Target(value = ElementType.FIELD)
 @Retention(value = RetentionPolicy.RUNTIME)
-public @interface IntegerFixed {
-    String value();
+public @interface DontMock {
+
 }
 

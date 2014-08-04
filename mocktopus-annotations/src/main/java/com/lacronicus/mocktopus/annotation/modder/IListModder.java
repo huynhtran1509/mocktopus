@@ -1,4 +1,4 @@
-package com.lacronicus.mocktopus.core.mocktopus.modder;
+package com.lacronicus.mocktopus.annotation.modder;
 
 import java.util.List;
 

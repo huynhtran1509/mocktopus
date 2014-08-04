@@ -10,7 +10,6 @@ import com.lacronicus.mocktopus.core.mocktopus.Mocktopus;
  * Created by fdoyle on 7/17/14.
  */
 public class BaseActivity extends FragmentActivity{
-    public static final int REQUEST_CODE = -10001;
 
     @Override
     protected void onCreate(Bundle state) {

@@ -3,11 +3,10 @@ package com.lacronicus.mocktopus.core.mocktopus;
 import android.util.Log;
 import android.util.Pair;
 
-import com.lacronicus.mocktopus.core.mocktopus.annotation.collection.ListModder;
-import com.lacronicus.mocktopus.core.mocktopus.modder.IListModder;
+import com.lacronicus.mocktopus.annotation.ListModder;
+import com.lacronicus.mocktopus.annotation.modder.IListModder;
 import com.lacronicus.mocktopus.core.mocktopus.options.Option;
 import com.lacronicus.mocktopus.core.mocktopus.options.Options;
-
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
@@ -15,11 +14,8 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 import rx.Observable;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
 
 /**
  * Created by fdoyle on 7/24/14.

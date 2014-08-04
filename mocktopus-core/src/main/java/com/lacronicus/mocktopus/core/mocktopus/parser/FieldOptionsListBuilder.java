@@ -1,9 +1,8 @@
 package com.lacronicus.mocktopus.core.mocktopus.parser;
-
-import com.lacronicus.mocktopus.core.mocktopus.annotation.string.StringDate;
-import com.lacronicus.mocktopus.core.mocktopus.annotation.string.StringFixed;
-import com.lacronicus.mocktopus.core.mocktopus.annotation.string.StringImageUrl;
-import com.lacronicus.mocktopus.core.mocktopus.annotation.string.StringWebpageUrl;
+import com.lacronicus.mocktopus.annotation.string.StringDate;
+import com.lacronicus.mocktopus.annotation.string.StringFixed;
+import com.lacronicus.mocktopus.annotation.string.StringImageUrl;
+import com.lacronicus.mocktopus.annotation.string.StringWebpageUrl;
 import com.lacronicus.mocktopus.core.mocktopus.options.Option;
 import com.lacronicus.mocktopus.core.mocktopus.params.MocktopusParams;
 import com.lacronicus.mocktopus.core.mocktopus.params.MocktopusParamsBuilder;
