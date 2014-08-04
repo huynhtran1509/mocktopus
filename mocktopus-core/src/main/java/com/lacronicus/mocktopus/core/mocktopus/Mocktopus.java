@@ -85,7 +85,7 @@ public class Mocktopus {
         switch (requestCode) {
             case CONFIG_REQUEST_CODE:
                 if (resultCode == Activity.RESULT_OK) {
-                    new Handler().post(new Runnable() {//fix for nexus 7. why does this work?
+                    new Handler().post(new Runnable() {//wait for lifecycle events to flush before recreating
                         @Override
                         public void run() {
                             activity.recreate();
