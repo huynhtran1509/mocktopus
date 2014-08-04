@@ -17,6 +17,7 @@ import com.lacronicus.mocktopus.core.mocktopus.view.ItemOptionView;
 
 /**
  * Created by fdoyle on 7/15/14.
+ * todo make this better re. design, backing model, etc
  */
 public class OptionsAdapter extends BaseExpandableListAdapter {
     FlattenedOptions options;

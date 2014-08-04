@@ -13,6 +13,9 @@ import java.util.List;
 /**
  * Created by fdoyle on 7/16/14.
  * represents a flat list of options (for UI purposes) rather than the tree structure Options usually takes
+ *
+ * todo I really don't like this, feels really brittle. there's no inherent order to it, just however stuff was put into it.
+ * of course, that's how sorting trees works, so maybe it's not so bad.
  */
 public class FlattenedOptions {
     public List<FlatOptionsItem> itemList;

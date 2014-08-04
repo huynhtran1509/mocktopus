@@ -23,11 +23,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8b456bcd-76a8-4c20-bf1d-62d80dca6b14" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mocktopus-core/src/main/java/com/lacronicus/mocktopus/core/mocktopus/ConfigurationFragment.java" afterPath="$PROJECT_DIR$/mocktopus-core/src/main/java/com/lacronicus/mocktopus/core/mocktopus/ConfigurationFragment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mocktopus-core/src/main/java/com/lacronicus/mocktopus/core/mocktopus/parser/FieldOptionsListBuilder.java" afterPath="$PROJECT_DIR$/mocktopus-core/src/main/java/com/lacronicus/mocktopus/core/mocktopus/parser/FieldOptionsListBuilder.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mocktopus-core/src/main/java/com/lacronicus/mocktopus/core/mocktopus/options/Option.java" afterPath="$PROJECT_DIR$/mocktopus-core/src/main/java/com/lacronicus/mocktopus/core/mocktopus/options/Option.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mocktopus-core/src/main/java/com/lacronicus/mocktopus/core/mocktopus/FlattenedOptions.java" afterPath="$PROJECT_DIR$/mocktopus-core/src/main/java/com/lacronicus/mocktopus/core/mocktopus/FlattenedOptions.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mocktopus-core/src/main/java/com/lacronicus/mocktopus/core/mocktopus/OptionsAdapter.java" afterPath="$PROJECT_DIR$/mocktopus-core/src/main/java/com/lacronicus/mocktopus/core/mocktopus/OptionsAdapter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mocktopus-core/src/main/res/values/colors.xml" afterPath="$PROJECT_DIR$/mocktopus-core/src/main/res/values/colors.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="mocktopus.iws" />
@@ -95,18 +92,18 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="OptionsAdapter.java" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="OptionsAdapter.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/mocktopus-core/src/main/java/com/lacronicus/mocktopus/core/mocktopus/OptionsAdapter.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.70425534" vertical-offset="1769" max-vertical-offset="2775">
-              <caret line="161" column="89" selection-start-line="161" selection-start-column="89" selection-end-line="161" selection-end-column="89" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2790">
+              <caret line="22" column="14" selection-start-line="22" selection-start-column="14" selection-end-line="22" selection-end-column="14" />
               <folding>
-                <element signature="e#6392#6393#0" expanded="true" />
-                <element signature="e#6419#6420#0" expanded="true" />
-                <element signature="e#6716#6717#0" expanded="true" />
+                <element signature="e#6448#6449#0" expanded="true" />
+                <element signature="e#6475#6476#0" expanded="true" />
                 <element signature="e#6772#6773#0" expanded="true" />
-                <element signature="e#6824#6825#0" expanded="true" />
-                <element signature="e#6872#6873#0" expanded="true" />
+                <element signature="e#6828#6829#0" expanded="true" />
+                <element signature="e#6880#6881#0" expanded="true" />
+                <element signature="e#6928#6929#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -155,11 +152,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="FlattenedOptions.java" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="FlattenedOptions.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/mocktopus-core/src/main/java/com/lacronicus/mocktopus/core/mocktopus/FlattenedOptions.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="198" max-vertical-offset="2220">
-              <caret line="32" column="22" selection-start-line="32" selection-start-column="16" selection-end-line="32" selection-end-column="24" />
+            <state vertical-scroll-proportion="0.2795031" vertical-offset="0" max-vertical-offset="2265">
+              <caret line="17" column="71" selection-start-line="17" selection-start-column="71" selection-end-line="17" selection-end-column="71" />
               <folding>
                 <element signature="method#getType#0;class#FlatOptionsItem#0;class#FlattenedOptions#0" expanded="false" />
                 <element signature="method#getString#0;class#FlatOptionsItem#0;class#FlattenedOptions#0" expanded="false" />
@@ -1914,7 +1911,6 @@
         <option value="$PROJECT_DIR$/mocktopus-core/src/main/java/com/lacronicus/mocktopus/core/mocktopus/ApiBuilder.java" />
         <option value="$PROJECT_DIR$/mocktopus-core/src/main/java/com/lacronicus/mocktopus/core/mocktopus/Mocktopus.java" />
         <option value="$PROJECT_DIR$/mocktopus-core/src/main/java/com/lacronicus/mocktopus/core/mocktopus/params/MocktopusParams.java" />
-        <option value="$PROJECT_DIR$/mocktopus-core/src/main/java/com/lacronicus/mocktopus/core/mocktopus/FlattenedOptions.java" />
         <option value="$PROJECT_DIR$/mocktopus-core/src/main/java/com/lacronicus/mocktopus/core/mocktopus/options/LeafOptionsNode.java" />
         <option value="$PROJECT_DIR$/mocktopus-core/src/main/java/com/lacronicus/mocktopus/core/mocktopus/invocationhandler/MockInvocationHandler.java" />
         <option value="$PROJECT_DIR$/mocktopus-core/src/main/java/com/lacronicus/mocktopus/core/mocktopus/FieldSettings.java" />
@@ -1930,6 +1926,7 @@
         <option value="$PROJECT_DIR$/mocktopus-core/src/main/java/com/lacronicus/mocktopus/core/mocktopus/parser/FieldOptionsListBuilder.java" />
         <option value="$PROJECT_DIR$/mocktopus-core/src/main/res/values/colors.xml" />
         <option value="$PROJECT_DIR$/mocktopus-core/src/main/java/com/lacronicus/mocktopus/core/mocktopus/OptionsAdapter.java" />
+        <option value="$PROJECT_DIR$/mocktopus-core/src/main/java/com/lacronicus/mocktopus/core/mocktopus/FlattenedOptions.java" />
       </list>
     </option>
   </component>
@@ -2018,62 +2015,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="mocktopus" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="mocktopus" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="mocktopus-core" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="res" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="mocktopus" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="mocktopus" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="mocktopus-core" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="res" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="layout" />
               <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -2301,7 +2242,11 @@
       <created>1407178381088</created>
       <updated>1407178381088</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="show selected option in config screen">
+      <created>1407180062845</created>
+      <updated>1407180062845</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -2383,7 +2328,8 @@
       <TodoPanelSettings />
     </option>
     <MESSAGE value="added delayed observable comment" />
-    <option name="LAST_COMMIT_MESSAGE" value="added delayed observable comment" />
+    <MESSAGE value="show selected option in config screen" />
+    <option name="LAST_COMMIT_MESSAGE" value="show selected option in config screen" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -2396,7 +2342,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/mocktopus-core/src/main/java/com/lacronicus/mocktopus/core/mocktopus/OptionsAdapter.java</url>
-          <line>159</line>
+          <line>160</line>
           <properties />
           <option name="timeStamp" value="11" />
         </line-breakpoint>
@@ -2686,17 +2632,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/mocktopus-core/src/main/java/com/lacronicus/mocktopus/core/mocktopus/FlattenedOptions.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="198" max-vertical-offset="2220">
-          <caret line="32" column="22" selection-start-line="32" selection-start-column="16" selection-end-line="32" selection-end-column="24" />
-          <folding>
-            <element signature="method#getType#0;class#FlatOptionsItem#0;class#FlattenedOptions#0" expanded="false" />
-            <element signature="method#getString#0;class#FlatOptionsItem#0;class#FlattenedOptions#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/lacronicus/mocktopus/mocktopusdriver/MainActivity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="436" max-vertical-offset="1170">
@@ -2770,15 +2705,26 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/mocktopus-core/src/main/java/com/lacronicus/mocktopus/core/mocktopus/OptionsAdapter.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.70425534" vertical-offset="1769" max-vertical-offset="2775">
-          <caret line="161" column="89" selection-start-line="161" selection-start-column="89" selection-end-line="161" selection-end-column="89" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2790">
+          <caret line="22" column="14" selection-start-line="22" selection-start-column="14" selection-end-line="22" selection-end-column="14" />
           <folding>
-            <element signature="e#6392#6393#0" expanded="true" />
-            <element signature="e#6419#6420#0" expanded="true" />
-            <element signature="e#6716#6717#0" expanded="true" />
+            <element signature="e#6448#6449#0" expanded="true" />
+            <element signature="e#6475#6476#0" expanded="true" />
             <element signature="e#6772#6773#0" expanded="true" />
-            <element signature="e#6824#6825#0" expanded="true" />
-            <element signature="e#6872#6873#0" expanded="true" />
+            <element signature="e#6828#6829#0" expanded="true" />
+            <element signature="e#6880#6881#0" expanded="true" />
+            <element signature="e#6928#6929#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mocktopus-core/src/main/java/com/lacronicus/mocktopus/core/mocktopus/FlattenedOptions.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.2795031" vertical-offset="0" max-vertical-offset="2265">
+          <caret line="17" column="71" selection-start-line="17" selection-start-column="71" selection-end-line="17" selection-end-column="71" />
+          <folding>
+            <element signature="method#getType#0;class#FlatOptionsItem#0;class#FlattenedOptions#0" expanded="false" />
+            <element signature="method#getString#0;class#FlatOptionsItem#0;class#FlattenedOptions#0" expanded="false" />
           </folding>
         </state>
       </provider>
