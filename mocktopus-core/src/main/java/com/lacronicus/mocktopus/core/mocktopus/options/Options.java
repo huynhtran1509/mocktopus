@@ -5,6 +5,7 @@ import android.util.Log;
 import com.lacronicus.mocktopus.core.mocktopus.FieldSettings;
 import com.lacronicus.mocktopus.core.mocktopus.FlattenedOptions;
 import com.lacronicus.mocktopus.core.mocktopus.Tag;
+import com.lacronicus.mocktopus.core.mocktopus.parser.FieldOptionsListBuilder;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
@@ -33,9 +34,11 @@ public class Options {
 
     Map<Method, IOptionsNode> methodOptions;
     LogLevel level = LogLevel.FULL;
+    FieldOptionsListBuilder fieldOptionsListBuilder;
 
-    public Options(Class classToBuild) {
+    public Options(FieldOptionsListBuilder fieldOptionsListBuilder, Class classToBuild) {
         methodOptions = new HashMap<Method, IOptionsNode>();
+        this.fieldOptionsListBuilder = fieldOptionsListBuilder;
 
         Method[] methods = classToBuild.getMethods();
         for (int i = 0; i != methods.length; i++) {
@@ -48,16 +51,16 @@ public class Options {
                 ParameterizedType methodReturnType = (ParameterizedType) method.getGenericReturnType(); //this works for things that are List<Object>
                 Type observableType = methodReturnType.getActualTypeArguments()[0];//learn what's going on here
 
-                methodOptions.put(method, new ObservableOptionsNode(method, methodReturnType, observableType, 0));
+                methodOptions.put(method, new ObservableOptionsNode(fieldOptionsListBuilder, method, methodReturnType, observableType, 0));
 
 
             } else if (Collection.class.isAssignableFrom(returnClass)) { // todo might be a List<Object> or might be something that extends List<Object>
                 log("return type is collection: " + returnClass.getSimpleName());
 
                 ParameterizedType methodReturnType = (ParameterizedType) method.getGenericReturnType(); //this works for things that are List<Object>
-                methodOptions.put(method, new CollectionOptionsNode(method, null, methodReturnType, 0));
+                methodOptions.put(method, new CollectionOptionsNode(fieldOptionsListBuilder, method, null, methodReturnType, 0));
             } else {
-                methodOptions.put(method, new ModelOptionsNode(method, returnClass, 0));
+                methodOptions.put(method, new ModelOptionsNode(fieldOptionsListBuilder, method, returnClass, 0));
             }
         }
     }

@@ -2,6 +2,7 @@ package com.lacronicus.mocktopus.core.mocktopus.options;
 
 import com.lacronicus.mocktopus.core.mocktopus.FieldSettings;
 import com.lacronicus.mocktopus.core.mocktopus.FlattenedOptions;
+import com.lacronicus.mocktopus.core.mocktopus.parser.FieldOptionsListBuilder;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -20,7 +21,7 @@ public class CollectionOptionsNode implements IOptionsNode {
     Type containerType;
     Type parameterType;
 
-    public CollectionOptionsNode(Method m, Field f, Type myType, int depth) {
+    public CollectionOptionsNode(FieldOptionsListBuilder listBuilder, Method m, Field f, Type myType, int depth) {
         Type childType = ((ParameterizedType) myType).getActualTypeArguments()[0];
         Class<?> childClass;
         if (childType instanceof Class) {
@@ -31,24 +32,24 @@ public class CollectionOptionsNode implements IOptionsNode {
 
         //what if this contains "leaf" objects
         if (Collection.class.isAssignableFrom(childClass)) {
-            node = new CollectionOptionsNode(m, f, childType, depth + 1);
+            node = new CollectionOptionsNode(listBuilder, m, f, childType, depth + 1);
         } else if (childType.equals(String.class)) {
-            node = new LeafOptionsNode(m, f, childType, depth + 1);
+            node = new LeafOptionsNode(listBuilder,m, f, childType, depth + 1);
         } else if (childType.equals(Integer.class)) {
-            node = new LeafOptionsNode(m, f, childType, depth + 1);
+            node = new LeafOptionsNode(listBuilder,m, f, childType, depth + 1);
         } else if (childType.equals(Long.class)) {
-            node = new LeafOptionsNode(m, f, childType, depth + 1);
+            node = new LeafOptionsNode(listBuilder,m, f, childType, depth + 1);
         } else if (childType.equals(Float.class)) {
-            node = new LeafOptionsNode(m, f, childType, depth + 1);
+            node = new LeafOptionsNode(listBuilder,m, f, childType, depth + 1);
         } else if (childType.equals(Double.class)) {
-            node = new LeafOptionsNode(m, f, childType, depth + 1);
+            node = new LeafOptionsNode(listBuilder,m, f, childType, depth + 1);
         } else if (childType.equals(Character.class)) {
-            node = new LeafOptionsNode(m, f, childType, depth + 1);
+            node = new LeafOptionsNode(listBuilder,m, f, childType, depth + 1);
         } else if (childType.equals(Boolean.class)) {
-            node = new LeafOptionsNode(m, f, childType, depth + 1);
+            node = new LeafOptionsNode(listBuilder,m, f, childType, depth + 1);
         } else {
             //assume that it contains plain objects
-            node = new ModelOptionsNode(m, (Class<?>) childType, depth + 1);//do this if this represents a collection of plain objects
+            node = new ModelOptionsNode(listBuilder, m, (Class<?>) childType, depth + 1);//do this if this represents a collection of plain objects
         }
         this.parameterType = childType;
         this.containerType = myType;

@@ -2,6 +2,8 @@ package com.lacronicus.mocktopus.core.mocktopus;
 
 import android.util.Pair;
 
+import com.lacronicus.mocktopus.core.mocktopus.options.Option;
+
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Type;
@@ -28,7 +30,7 @@ public class FlattenedOptions {
         itemList.add(new FlatOptionsItem(new ChildObjectItem(clazz)));
     }
 
-    public void addField(Method m, Field f, Type layerType, List<Object> options) {
+    public void addField(Method m, Field f, Type layerType, List<Option> options) {
         itemList.add(new FlatOptionsItem(new MethodFieldItem(m, f, layerType, options)));
     }
 
@@ -130,10 +132,10 @@ public class FlattenedOptions {
         public Method method;
         public Field field;
         public Type type;
-        public List<Object> fieldOptions;
+        public List<Option> fieldOptions;
 
         //any reason options aren't just created here?
-        public MethodFieldItem(Method m, Field f,Type t, List<Object> options) {
+        public MethodFieldItem(Method m, Field f,Type t, List<Option> options) {
             this.method = m;
             this.field = f;
             this.type = t;

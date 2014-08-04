@@ -2,6 +2,7 @@ package com.lacronicus.mocktopus.core.mocktopus.options;
 
 import com.lacronicus.mocktopus.core.mocktopus.FieldSettings;
 import com.lacronicus.mocktopus.core.mocktopus.FlattenedOptions;
+import com.lacronicus.mocktopus.core.mocktopus.parser.FieldOptionsListBuilder;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
@@ -18,7 +19,7 @@ public class ObservableOptionsNode implements IOptionsNode {
     Type parameterType;
 
 
-    public ObservableOptionsNode(Method m, Type myType, Type childType, int depth) {
+    public ObservableOptionsNode(FieldOptionsListBuilder optionsListBuilder, Method m, Type myType, Type childType, int depth) {
         Class<?> childClass;
         if(childType instanceof Class) {
             childClass = (Class<?>) childType;
@@ -27,10 +28,10 @@ public class ObservableOptionsNode implements IOptionsNode {
         }
 
         if(Collection.class.isAssignableFrom(childClass)) {
-            childNode = new CollectionOptionsNode(m, null, childType, depth +1);
+            childNode = new CollectionOptionsNode(optionsListBuilder, m, null, childType, depth +1);
         } else {
             //assume that it contains plain objects
-            childNode = new ModelOptionsNode(m, (Class<?>) childType, depth + 1);//do this if this represents a collection of plain objects
+            childNode = new ModelOptionsNode(optionsListBuilder, m, (Class<?>) childType, depth + 1);//do this if this represents a collection of plain objects
         }
         this.parameterType = childType;
         this.containerType = myType;

@@ -16,45 +16,45 @@ import java.util.List;
  * Created by fdoyle on 7/25/14.
  */
 public class LeafOptionsNode implements IOptionsNode {
-    List<Object> options;
+    List<Option> options;
     Method method; // the method this OptionsNode is being created for
     Field field; // the field this is going into
     Type layerType; // the type of the thing this represents
 
 
     //field may, in very rare circumstances, be null"
-    public LeafOptionsNode(Method method, Field field, Type layerType, int depth) {
-        options = new ArrayList<Object>();
+    public LeafOptionsNode(FieldOptionsListBuilder optionsBuilder, Method method, Field field, Type layerType, int depth) {
+        options = new ArrayList<Option>();
         this.method = method;
         this.field = field;
         this.layerType = layerType;
 
         if (layerType.equals(String.class)) {
-            options = FieldOptionsListBuilder.getOptionsForStringField(field);
+            options = optionsBuilder.getOptionsForStringField(field);
         } else if (layerType.equals(Integer.class)) {
-            options = FieldOptionsListBuilder.getOptionsforIntegerField(field, true);
+            options = optionsBuilder.getOptionsforIntegerField(field, true);
         } else if (layerType.equals(int.class)) {
-            options = FieldOptionsListBuilder.getOptionsforIntegerField(field, false);
+            options = optionsBuilder.getOptionsforIntegerField(field, false);
         } else if (layerType.equals(Long.class)) {
-            options = FieldOptionsListBuilder.getOptionsforLongField(field, true);
+            options = optionsBuilder.getOptionsforLongField(field, true);
         } else if (layerType.equals(long.class)) {
-            options = FieldOptionsListBuilder.getOptionsforLongField(field, false);
+            options = optionsBuilder.getOptionsforLongField(field, false);
         } else if (layerType.equals(Double.class)) {
-            options = FieldOptionsListBuilder.getOptionsforDoubleField(field, true);
+            options = optionsBuilder.getOptionsforDoubleField(field, true);
         } else if (layerType.equals(double.class)) {
-            options = FieldOptionsListBuilder.getOptionsforDoubleField(field, false);
+            options = optionsBuilder.getOptionsforDoubleField(field, false);
         } else if (layerType.equals(Float.class)) {
-            options = FieldOptionsListBuilder.getOptionsforFloatField(field, true);
+            options = optionsBuilder.getOptionsforFloatField(field, true);
         } else if (layerType.equals(float.class)) {
-            options = FieldOptionsListBuilder.getOptionsforFloatField(field, false);
+            options = optionsBuilder.getOptionsforFloatField(field, false);
         } else if (layerType.equals(Character.class)) {
-            options = FieldOptionsListBuilder.getOptionsforCharField(field, true);
+            options = optionsBuilder.getOptionsforCharField(field, true);
         } else if (layerType.equals(char.class)) {
-            options = FieldOptionsListBuilder.getOptionsforCharField(field, false);
+            options = optionsBuilder.getOptionsforCharField(field, false);
         } else if (layerType.equals(Boolean.class)) {
-            options = FieldOptionsListBuilder.getOptionsforBooleanField(field, true);
+            options = optionsBuilder.getOptionsforBooleanField(field, true);
         } else if (layerType.equals(boolean.class)) {
-            options = FieldOptionsListBuilder.getOptionsforBooleanField(field, false);
+            options = optionsBuilder.getOptionsforBooleanField(field, false);
         }
     }
 

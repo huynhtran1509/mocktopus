@@ -5,6 +5,7 @@ import android.util.Pair;
 
 import com.lacronicus.mocktopus.core.mocktopus.annotation.collection.ListModder;
 import com.lacronicus.mocktopus.core.mocktopus.modder.IListModder;
+import com.lacronicus.mocktopus.core.mocktopus.options.Option;
 import com.lacronicus.mocktopus.core.mocktopus.options.Options;
 
 import java.lang.reflect.Field;
@@ -32,7 +33,7 @@ public class ObjectCreator {
      * @param f the field the object is about to be put into, null if it's the top-level object
      * @param currentSettings the settings object being used to create new methods
      */
-    public static Object createObject(Type returnType, Method method, Field f, FieldSettings currentSettings) {
+    public Object createObject(Type returnType, Method method, Field f, FieldSettings currentSettings) {
         log("creating a new object");
         Class<?> returnClass;
         if (returnType instanceof Class) {
@@ -42,19 +43,33 @@ public class ObjectCreator {
         } //is there ever going to be something else?
         try {
             if (returnClass.equals(String.class)) {
-                return currentSettings.get(new Pair<Method, Field>(method, f));
+                Option returnOption = currentSettings.get(method, f);
+                log(returnOption.toString());
+                return returnOption.getValue();
             } else if (returnClass.equals(Integer.class)) {
-                return currentSettings.get(new Pair<Method, Field>(method, f));
+                Option returnOption = currentSettings.get(method, f);
+                log(returnOption.toString());
+                return returnOption.getValue();
             } else if (returnClass.equals(Long.class)) {
-                return currentSettings.get(new Pair<Method, Field>(method, f));
+                Option returnOption = currentSettings.get(method, f);
+                log(returnOption.toString());
+                return returnOption.getValue();
             } else if (returnClass.equals(Float.class)) {
-                return currentSettings.get(new Pair<Method, Field>(method, f));
+                Option returnOption = currentSettings.get(method, f);
+                log(returnOption.toString());
+                return returnOption.getValue();
             } else if (returnClass.equals(Double.class)) {
-                return currentSettings.get(new Pair<Method, Field>(method, f));
+                Option returnOption = currentSettings.get(method, f);
+                log(returnOption.toString());
+                return returnOption.getValue();
             } else if (returnClass.equals(Character.class)) {
-                return currentSettings.get(new Pair<Method, Field>(method, f));
+                Option returnOption = currentSettings.get(method, f);
+                log(returnOption.toString());
+                return returnOption.getValue();
             } else if (returnClass.equals(Boolean.class)) {
-                return currentSettings.get(new Pair<Method, Field>(method, f));
+                Option returnOption = currentSettings.get(method, f);
+                log(returnOption.toString());
+                return returnOption.getValue();
             } else if (Observable.class.isAssignableFrom(returnClass)) {
                 Type containedClass = ((ParameterizedType) returnType).getActualTypeArguments()[0];
                 return Observable.from(createObject(containedClass, method,null, currentSettings));
@@ -95,27 +110,27 @@ public class ObjectCreator {
                     } else if (fieldType.equals(Integer.class)) {
                         childField.set(response, createObject(fieldType, method, childField, currentSettings));
                     } else if (fieldType.equals(int.class)) {
-                        childField.setInt(response, (Integer) currentSettings.get(new Pair<Method, Field>(method, childField)));
+                        childField.setInt(response, (Integer) currentSettings.get(new Pair<Method, Field>(method, childField)).getValue());
                     } else if (fieldType.equals(Long.class)) {
-                        childField.set(response, createObject(fieldType, method, childField, currentSettings));
+                        childField.set(response,createObject(fieldType, method, childField, currentSettings));
                     } else if (fieldType.equals(long.class)) {
-                        childField.setLong(response, (Long) currentSettings.get(new Pair<Method, Field>(method, childField)));
+                        childField.setLong(response, (Long) currentSettings.get(new Pair<Method, Field>(method, childField)).getValue());
                     } else if (fieldType.equals(Double.class)) {
                         childField.set(response, createObject(fieldType, method, childField, currentSettings));
                     } else if (fieldType.equals(double.class)) {
-                        childField.setDouble(response, (Double) currentSettings.get(new Pair<Method, Field>(method, childField)));
+                        childField.setDouble(response, (Double) currentSettings.get(new Pair<Method, Field>(method, childField)).getValue());
                     } else if (fieldType.equals(Float.class)) {
                         childField.set(response, createObject(fieldType, method, childField, currentSettings));
                     } else if (fieldType.equals(float.class)) {
-                        childField.setFloat(response, (Float) currentSettings.get(new Pair<Method, Field>(method, childField)));
+                        childField.setFloat(response, (Float) currentSettings.get(new Pair<Method, Field>(method, childField)).getValue());
                     } else if (fieldType.equals(Character.class)) {
                         childField.set(response, createObject(fieldType, method, childField, currentSettings));
                     } else if (fieldType.equals(char.class)) {
-                        childField.setChar(response, (Character) currentSettings.get(new Pair<Method, Field>(method, childField)));
+                        childField.setChar(response, (Character) currentSettings.get(new Pair<Method, Field>(method, childField)).getValue());
                     } else if (fieldType.equals(Boolean.class)) {
                         childField.set(response, createObject(fieldType, method, childField, currentSettings));
                     } else if (fieldType.equals(boolean.class)) {
-                        childField.setBoolean(response, (Boolean) currentSettings.get(new Pair<Method, Field>(method, childField)));
+                        childField.setBoolean(response, (Boolean) currentSettings.get(new Pair<Method, Field>(method, childField)).getValue());
                     } else { // best way to determine child classes? what if it contains an Activity for some awful reason?
                         // may need to explicity state what children to add
                         childField.set(response, createObject(childField.getGenericType(), method, childField, currentSettings));
