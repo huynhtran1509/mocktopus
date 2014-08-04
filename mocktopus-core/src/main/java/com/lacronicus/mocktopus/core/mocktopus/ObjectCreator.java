@@ -15,8 +15,11 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import rx.Observable;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 /**
  * Created by fdoyle on 7/24/14.
@@ -73,6 +76,8 @@ public class ObjectCreator {
             } else if (Observable.class.isAssignableFrom(returnClass)) {
                 Type containedClass = ((ParameterizedType) returnType).getActualTypeArguments()[0];
                 return Observable.from(createObject(containedClass, method,null, currentSettings));
+
+                //return Observable.from(createObject(containedClass, method, null, currentSettings)).delay(3000, TimeUnit.MILLISECONDS).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());//this delay thing can be flaky. seems to work with this particular setup though
             } else if (Collection.class.isAssignableFrom(returnClass)) {
                 log("returnClass is collection " + returnClass.getSimpleName());
                 List<Object> collection = new ArrayList<Object>();
