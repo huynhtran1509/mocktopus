@@ -1,7 +1,5 @@
 package com.lacronicus.mocktopus.core.mocktopus.params;
 
-import android.util.Pair;
-
 import com.lacronicus.mocktopus.core.mocktopus.options.Option;
 
 import java.lang.reflect.Type;

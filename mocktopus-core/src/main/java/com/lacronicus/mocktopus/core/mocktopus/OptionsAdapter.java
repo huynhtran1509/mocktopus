@@ -1,12 +1,10 @@
 package com.lacronicus.mocktopus.core.mocktopus;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
-import android.widget.TextView;
 
 import com.lacronicus.mocktopus.core.R;
 import com.lacronicus.mocktopus.core.mocktopus.options.Option;

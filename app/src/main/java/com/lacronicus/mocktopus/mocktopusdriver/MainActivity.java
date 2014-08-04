@@ -3,11 +3,8 @@ package com.lacronicus.mocktopus.mocktopusdriver;
 import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.text.util.Linkify;
-import android.util.Log;
 import android.view.Menu;
-import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -17,14 +14,9 @@ import com.lacronicus.mocktopus.mocktopusdriver.fakeservice.model.MyModel;
 import com.lacronicus.mocktopus.mocktopusdriver.redditservice.RedditService;
 import com.squareup.seismic.ShakeDetector;
 
-import java.util.concurrent.TimeUnit;
-
 import javax.inject.Inject;
 
-import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Action0;
 import rx.functions.Action1;
-import rx.schedulers.Schedulers;
 
 
 public class MainActivity extends BaseActivity implements ShakeDetector.Listener {

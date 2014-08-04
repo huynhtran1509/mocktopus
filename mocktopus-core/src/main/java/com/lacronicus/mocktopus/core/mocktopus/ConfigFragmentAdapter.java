@@ -1,6 +1,5 @@
 package com.lacronicus.mocktopus.core.mocktopus;
 
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
