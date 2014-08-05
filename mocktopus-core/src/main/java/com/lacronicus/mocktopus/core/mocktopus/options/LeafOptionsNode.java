@@ -30,31 +30,31 @@ public class LeafOptionsNode implements IOptionsNode {
         this.layerType = layerType;
 
         if (layerType.equals(String.class)) {
-            options = optionsBuilder.getOptionsForStringField(field);
+            options = optionsBuilder.getStringOptions(field);
         } else if (layerType.equals(Integer.class)) {
-            options = optionsBuilder.getOptionsforIntegerField(field, true);
+            options = optionsBuilder.getIntegerOptions(field, true);
         } else if (layerType.equals(int.class)) {
-            options = optionsBuilder.getOptionsforIntegerField(field, false);
+            options = optionsBuilder.getIntegerOptions(field, false);
         } else if (layerType.equals(Long.class)) {
-            options = optionsBuilder.getOptionsforLongField(field, true);
+            options = optionsBuilder.getLongOptions(field, true);
         } else if (layerType.equals(long.class)) {
-            options = optionsBuilder.getOptionsforLongField(field, false);
+            options = optionsBuilder.getLongOptions(field, false);
         } else if (layerType.equals(Double.class)) {
-            options = optionsBuilder.getOptionsforDoubleField(field, true);
+            options = optionsBuilder.getDoubleOptions(field, true);
         } else if (layerType.equals(double.class)) {
-            options = optionsBuilder.getOptionsforDoubleField(field, false);
+            options = optionsBuilder.getDoubleOptions(field, false);
         } else if (layerType.equals(Float.class)) {
-            options = optionsBuilder.getOptionsforFloatField(field, true);
+            options = optionsBuilder.getFloatOptions(field, true);
         } else if (layerType.equals(float.class)) {
-            options = optionsBuilder.getOptionsforFloatField(field, false);
+            options = optionsBuilder.getFloatOptions(field, false);
         } else if (layerType.equals(Character.class)) {
-            options = optionsBuilder.getOptionsforCharField(field, true);
+            options = optionsBuilder.getCharOptions(field, true);
         } else if (layerType.equals(char.class)) {
-            options = optionsBuilder.getOptionsforCharField(field, false);
+            options = optionsBuilder.getCharOptions(field, false);
         } else if (layerType.equals(Boolean.class)) {
-            options = optionsBuilder.getOptionsforBooleanField(field, true);
+            options = optionsBuilder.getBooleanOptions(field, true);
         } else if (layerType.equals(boolean.class)) {
-            options = optionsBuilder.getOptionsforBooleanField(field, false);
+            options = optionsBuilder.getBooleanOptions(field, false);
         }
     }
 

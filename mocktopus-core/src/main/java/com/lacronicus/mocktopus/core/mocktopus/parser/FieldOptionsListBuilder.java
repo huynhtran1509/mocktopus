@@ -35,7 +35,7 @@ public class FieldOptionsListBuilder {
     }
 
 
-    public List<MethodFieldOption> getOptionsForStringField(Field field) {
+    public List<MethodFieldOption> getStringOptions(Field field) {
         List<MethodFieldOption> returnList = new ArrayList<MethodFieldOption>();
 
         //todo sane ordering of annotations? which ones are most important and should be default
@@ -69,7 +69,7 @@ public class FieldOptionsListBuilder {
         return returnList;
     }
 
-    public List<MethodFieldOption> getOptionsforIntegerField(Field field, boolean isObject) {
+    public List<MethodFieldOption> getIntegerOptions(Field field, boolean isObject) {
         List<MethodFieldOption> returnList = new ArrayList<MethodFieldOption>();
         returnList.addAll(params.getOptionsForType(Integer.class));
         if (isObject)
@@ -77,7 +77,7 @@ public class FieldOptionsListBuilder {
         return returnList;
     }
 
-    public List<MethodFieldOption> getOptionsforLongField(Field field, boolean isObject) {
+    public List<MethodFieldOption> getLongOptions(Field field, boolean isObject) {
         List<MethodFieldOption> returnList = new ArrayList<MethodFieldOption>();
         returnList.addAll(params.getOptionsForType(Long.class));
         if (isObject)
@@ -85,7 +85,7 @@ public class FieldOptionsListBuilder {
         return returnList;
     }
 
-    public List<MethodFieldOption> getOptionsforDoubleField(Field field, boolean isObject) {
+    public List<MethodFieldOption> getDoubleOptions(Field field, boolean isObject) {
         List<MethodFieldOption> returnList = new ArrayList<MethodFieldOption>();
         returnList.addAll(params.getOptionsForType(Double.class));
         if (isObject)
@@ -93,7 +93,7 @@ public class FieldOptionsListBuilder {
         return returnList;
     }
 
-    public List<MethodFieldOption> getOptionsforFloatField(Field field, boolean isObject) {
+    public List<MethodFieldOption> getFloatOptions(Field field, boolean isObject) {
         List<MethodFieldOption> returnList = new ArrayList<MethodFieldOption>();
         returnList.addAll(params.getOptionsForType(Float.class));
         if (isObject)
@@ -102,7 +102,7 @@ public class FieldOptionsListBuilder {
     }
 
 
-    public List<MethodFieldOption> getOptionsforCharField(Field field, boolean isObject) {
+    public List<MethodFieldOption> getCharOptions(Field field, boolean isObject) {
         List<MethodFieldOption> returnList = new ArrayList<MethodFieldOption>();
         returnList.addAll(params.getOptionsForType(Character.class));
         if (isObject)
@@ -111,12 +111,14 @@ public class FieldOptionsListBuilder {
     }
 
 
-    public List<MethodFieldOption> getOptionsforBooleanField(Field field, boolean isObject) {
+    public List<MethodFieldOption> getBooleanOptions(Field field, boolean isObject) {
         List<MethodFieldOption> returnList = new ArrayList<MethodFieldOption>();
         returnList.addAll(params.getOptionsForType(Boolean.class));
         if (isObject)
             returnList.add(MethodFieldOption.nullOption());
         return returnList;
     }
+
+
 
 }

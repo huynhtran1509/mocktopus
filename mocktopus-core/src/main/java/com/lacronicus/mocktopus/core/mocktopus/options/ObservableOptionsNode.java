@@ -2,17 +2,21 @@ package com.lacronicus.mocktopus.core.mocktopus.options;
 
 import com.lacronicus.mocktopus.core.mocktopus.Settings;
 import com.lacronicus.mocktopus.core.mocktopus.FlattenedOptions;
+import com.lacronicus.mocktopus.core.mocktopus.options.observable.ObservableOption;
 import com.lacronicus.mocktopus.core.mocktopus.parser.FieldOptionsListBuilder;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.Collection;
+import java.util.List;
 
 /**
  * Created by fdoyle on 7/22/14.
  */
 public class ObservableOptionsNode implements IOptionsNode {
+
+    List<ObservableOption> options;
 
     IOptionsNode childNode;
     Type containerType;

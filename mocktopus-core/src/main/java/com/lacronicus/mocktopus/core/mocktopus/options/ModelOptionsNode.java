@@ -26,7 +26,6 @@ public class ModelOptionsNode implements IOptionsNode {
 
     LogLevel level = LogLevel.FULL;
     int depth;
-    //public Map<Field, List<Object>> fieldOptions;
     public Map<Field, LeafOptionsNode> fieldOptions;
     public Map<Field, ModelOptionsNode> childOptions;
     public Map<Field, CollectionOptionsNode> childCollectionOptions;
@@ -57,45 +56,22 @@ public class ModelOptionsNode implements IOptionsNode {
             Class fieldType = field.getType();
             if (field.getName().equals("this$0")) {
                 //checking for non-static inner class, but this check doesn't actually work
-                log("found 'this,' probably a non-static inner class. don't use those in your models, things break");
-            } else if (fieldType.equals(String.class)) {
-                //fieldOptions.put(field, b.getOptionsForStringField(field));
-                fieldOptions.put(field, new LeafOptionsNode(listBuilder,method, field, fieldType, depth+1));
-            } else if (fieldType.equals(Integer.class)) { //ignore everything but string and child classes
-                //fieldOptions.put(field, b.getOptionsforIntegerField(field, true));
-                fieldOptions.put(field, new LeafOptionsNode(listBuilder,method, field, fieldType, depth+1));
-            } else if (fieldType.equals(int.class)) { //ignore everything but string and child classes
-                //fieldOptions.put(field, b.getOptionsforIntegerField(field, false));
-                fieldOptions.put(field, new LeafOptionsNode(listBuilder,method, field, fieldType, depth+1));
-            } else if (fieldType.equals(Long.class)) {
-                //fieldOptions.put(field, b.getOptionsforLongField(field, true));
-                fieldOptions.put(field, new LeafOptionsNode(listBuilder,method, field, fieldType, depth+1));
-            } else if (fieldType.equals(long.class)) { //ignore everything but string and child classes
-                //fieldOptions.put(field, b.getOptionsforLongField(field, false));
-                fieldOptions.put(field, new LeafOptionsNode(listBuilder,method, field, fieldType, depth+1));
-            } else if (fieldType.equals(Double.class)) {
-                //fieldOptions.put(field, b.getOptionsforDoubleField(field, true));
-                fieldOptions.put(field, new LeafOptionsNode(listBuilder,method, field, fieldType, depth+1));
-            } else if (fieldType.equals(double.class)) { //ignore everything but string and child classes
-                //fieldOptions.put(field, b.getOptionsforDoubleField(field, false));
-                fieldOptions.put(field, new LeafOptionsNode(listBuilder,method, field, fieldType, depth+1));
-            } else if (fieldType.equals(Float.class)) {
-                //fieldOptions.put(field, b.getOptionsforFloatField(field, true));
-                fieldOptions.put(field, new LeafOptionsNode(listBuilder,method, field, fieldType, depth+1));
-            } else if (fieldType.equals(float.class)) { //ignore everything but string and child classes
-                //fieldOptions.put(field, b.getOptionsforFloatField(field, false));
-                fieldOptions.put(field, new LeafOptionsNode(listBuilder,method, field, fieldType, depth+1));
-            } else if (fieldType.equals(Character.class)) {
-                //fieldOptions.put(field, b.getOptionsforCharField(field, true));
-                fieldOptions.put(field, new LeafOptionsNode(listBuilder,method, field, fieldType, depth+1));
-            } else if (fieldType.equals(char.class)) { //ignore everything but string and child classes
-                //fieldOptions.put(field, b.getOptionsforCharField(field, false));
-                fieldOptions.put(field, new LeafOptionsNode(listBuilder,method, field, fieldType, depth+1));
-            } else if (fieldType.equals(Boolean.class)) {
-                //fieldOptions.put(field, b.getOptionsforBooleanField(field, true));
-                fieldOptions.put(field, new LeafOptionsNode(listBuilder,method, field, fieldType, depth+1));
-            } else if (fieldType.equals(boolean.class)) { //ignore everything but string and child classes
-                //fieldOptions.put(field, b.getOptionsforBooleanField(field, false));
+            } else if (fieldType.equals(String.class) ||
+                    fieldType.equals(Integer.class) ||
+                    fieldType.equals(int.class) ||
+                    fieldType.equals(Long.class) ||
+                    fieldType.equals(long.class) ||
+                    fieldType.equals(Double.class) ||
+                    fieldType.equals(double.class) ||
+                    fieldType.equals(Float.class) ||
+                    fieldType.equals(float.class) ||
+                    fieldType.equals(Double.class) ||
+                    fieldType.equals(double.class) ||
+                    fieldType.equals(Character.class) ||
+                    fieldType.equals(char.class) ||
+                    fieldType.equals(Boolean.class) ||
+                    fieldType.equals(boolean.class)
+                    ) {
                 fieldOptions.put(field, new LeafOptionsNode(listBuilder,method, field, fieldType, depth+1));
             } else if (Collection.class.isAssignableFrom(fieldType)) {
                 log("adding field option for Collection: " + field.getName() + " depth " + depth);
@@ -105,9 +81,7 @@ public class ModelOptionsNode implements IOptionsNode {
                 log("adding field option for child Object" + field.getName());
                 childOptions.put(field, new ModelOptionsNode(listBuilder,method, fieldType, depth + 1));
             }
-
         }
-
     }
 
 

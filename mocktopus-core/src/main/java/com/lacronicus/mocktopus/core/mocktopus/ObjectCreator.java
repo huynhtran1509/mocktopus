@@ -51,15 +51,13 @@ public class ObjectCreator {
                 MethodFieldOption returnOption = currentSettings.get(method, f);
                 return returnOption.getValue();
             } else if (Observable.class.isAssignableFrom(returnClass)) {
-                Type containedClass = ((ParameterizedType) returnType).getActualTypeArguments()[0];
-                return Observable.from(createObject(containedClass, method, null, currentSettings));
 
-                //return Observable.from(createObject(containedClass, method, null, currentSettings)).delay(3000, TimeUnit.MILLISECONDS).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());//this delay thing can be flaky. seems to work with this particular setup though
+                Type containedClass = ((ParameterizedType) returnType).getActualTypeArguments()[0];
+                //return Observable.from(createObject(containedClass, method, null, currentSettings));
+                return  currentSettings.observableOption.createObservableForObject(createObject(containedClass, method, null, currentSettings));
             } else if (Collection.class.isAssignableFrom(returnClass)) {
-                log("returnClass is collection " + returnClass.getSimpleName());
                 List<Object> collection = new ArrayList<Object>();
                 Type containedType = ((ParameterizedType) returnType).getActualTypeArguments()[0];
-                log("adding three items to collection");
                 if (containedType instanceof Class<?> && ((Class<?>) containedType).isAnnotationPresent(ListModder.class)) {
                     Class containedClass = (Class<?>) containedType;
                     ListModder builderAnnotation = (ListModder) containedClass.getAnnotation(ListModder.class);
@@ -80,11 +78,7 @@ public class ObjectCreator {
             } else { // this is a traditional model object, fill its fields
                 Object response = returnClass.newInstance();
                 Field[] childFields = returnClass.getDeclaredFields(); // todo add support for super classes here
-
                 for (int i = 0; i != childFields.length; i++) {
-
-                    //todo this is an unreadable mess, fix it
-                    //break up by primitives and objects, objects should have a single call to createObject
                     Field childField = childFields[i];
                     Class fieldType = childField.getType();
                     if (fieldType.equals(String.class) ||
@@ -110,7 +104,6 @@ public class ObjectCreator {
                     } else { // best way to determine child classes? what if it contains an Activity for some awful reason?
                         // may need to explicity state what children to add
                         childField.set(response, createObject(childField.getGenericType(), method, childField, currentSettings));
-
                     }
                 }
                 return response;
@@ -122,7 +115,6 @@ public class ObjectCreator {
             log("failed to access, are all of your fields public?"); // way around this issue?
             e.printStackTrace();
         }
-
         return null;
     }
 

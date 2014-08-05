@@ -3,6 +3,7 @@ package com.lacronicus.mocktopus.core.mocktopus;
 import android.util.Pair;
 
 import com.lacronicus.mocktopus.core.mocktopus.options.MethodFieldOption;
+import com.lacronicus.mocktopus.core.mocktopus.options.observable.ImmediateObservable;
 import com.lacronicus.mocktopus.core.mocktopus.options.observable.ObservableOption;
 
 import java.lang.reflect.Field;
@@ -16,7 +17,7 @@ import java.util.Map;
 public class Settings{
 
     Map<Pair<Method, Field>, MethodFieldOption> fieldSettings;
-    ObservableOption observableOption;
+    ObservableOption observableOption = new ImmediateObservable();
     Map<Method, MethodFieldOption> methodOptions;
 
     public Settings() {
@@ -34,4 +35,5 @@ public class Settings{
     public MethodFieldOption get(Method method, Field field) {
         return fieldSettings.get(new Pair<Method, Field>(method, field));
     }
+
 }
