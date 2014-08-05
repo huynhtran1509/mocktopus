@@ -52,9 +52,17 @@ public class ConfigurationFragment extends Fragment {
             public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
                 Settings settings = handler.getSettings();
                 switch (adapter.getGroup(groupPosition).getType()) {
+
+
                     case FlattenedOptions.FlatOptionsItem.TYPE_FIELD: {
                         FlattenedOptions.MethodFieldItem item = adapter.getGroup(groupPosition).methodFieldItem; //currently the
                         settings.put(item.method, item.field, item.fieldOptions.get(childPosition));
+                        adapter.notifyDataSetChanged();
+                        break;
+                    }
+                    case FlattenedOptions.FlatOptionsItem.TYPE_METHOD: {
+                        FlattenedOptions.MethodItem item = adapter.getGroup(groupPosition).methodItem;
+                        settings.putMethodOption(item.method, item.methodOptions.get(childPosition));
                         adapter.notifyDataSetChanged();
                         break;
                     }

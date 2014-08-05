@@ -1,6 +1,7 @@
 package com.lacronicus.mocktopus.core.mocktopus.params;
 
 import com.lacronicus.mocktopus.core.mocktopus.options.MethodFieldOption;
+import com.lacronicus.mocktopus.core.mocktopus.options.method.MethodOption;
 import com.lacronicus.mocktopus.core.mocktopus.options.observable.ObservableOption;
 
 import java.lang.reflect.Type;
@@ -21,9 +22,14 @@ public class MocktopusParams{
 
     Map<Type, List<MethodFieldOption>> fieldOptions;
     List<ObservableOption> observableOptions;
+    List<MethodOption> methodOptions;
+
 
     public MocktopusParams() {
         fieldOptions = new HashMap<Type, List<MethodFieldOption>>();
+        observableOptions = new ArrayList<ObservableOption>();
+        methodOptions = new ArrayList<MethodOption>();
+
     }
 
     public void setFieldOptions(Map<Type, List<MethodFieldOption>> newGlobalFieldOptions) {
@@ -47,5 +53,16 @@ public class MocktopusParams{
     public List<ObservableOption> getObservableOptions() {
         return observableOptions;
     }
+
+    public void setMethodOptions(List<MethodOption> methodOptions) {
+        this.methodOptions = new ArrayList<MethodOption>();
+        this.methodOptions.addAll(methodOptions);
+    }
+
+    public List<MethodOption> getMethodOptions() {
+        return methodOptions;
+    }
+
+
 
 }

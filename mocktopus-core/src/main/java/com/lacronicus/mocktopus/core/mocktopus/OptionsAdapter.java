@@ -8,6 +8,7 @@ import android.widget.BaseExpandableListAdapter;
 
 import com.lacronicus.mocktopus.core.R;
 import com.lacronicus.mocktopus.core.mocktopus.options.MethodFieldOption;
+import com.lacronicus.mocktopus.core.mocktopus.options.method.MethodOption;
 import com.lacronicus.mocktopus.core.mocktopus.options.observable.ObservableOption;
 import com.lacronicus.mocktopus.core.mocktopus.view.ItemClassView;
 import com.lacronicus.mocktopus.core.mocktopus.view.ItemFieldView;
@@ -47,7 +48,7 @@ public class OptionsAdapter extends BaseExpandableListAdapter {
     public int getChildrenCount(int groupPosition) {
         switch (getGroupType(groupPosition)) {
             case FlattenedOptions.FlatOptionsItem.TYPE_METHOD:
-                return 0;//todo
+                return getGroup(groupPosition).methodItem.methodOptions.size();
             case FlattenedOptions.FlatOptionsItem.TYPE_OBSERVABLE:
                 return getGroup(groupPosition).observableObjectItem.observableOptions.size();
             case FlattenedOptions.FlatOptionsItem.TYPE_COLLECTION:
@@ -141,8 +142,17 @@ public class OptionsAdapter extends BaseExpandableListAdapter {
         }
         FlattenedOptions.FlatOptionsItem group = getGroup(groupPosition);
         switch (group.getType()) {
-            case FlattenedOptions.FlatOptionsItem.TYPE_METHOD:
+            case FlattenedOptions.FlatOptionsItem.TYPE_METHOD: {
+                MethodOption methodOption = group.methodItem.methodOptions.get(childPosition);
+                optionView.text.setText(methodOption.getDescription());
+                MethodOption currentOption = settings.getMethodOption(item.methodItem.method);
+                if (methodOption.equals(currentOption)) {
+                    optionView.setBackgroundColor(c.getResources().getColor(R.color.cyan200));
+                } else {
+                    optionView.setBackgroundColor(c.getResources().getColor(R.color.white));
+                }
                 break;
+            }
             case FlattenedOptions.FlatOptionsItem.TYPE_OBSERVABLE: {
                 //MethodFieldOption option = group.methodFieldItem.fieldOptions.get(childPosition);
                 ObservableOption observableOption = group.observableObjectItem.observableOptions.get(childPosition);

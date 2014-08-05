@@ -3,6 +3,7 @@ package com.lacronicus.mocktopus.core.mocktopus;
 import android.util.Pair;
 
 import com.lacronicus.mocktopus.core.mocktopus.options.MethodFieldOption;
+import com.lacronicus.mocktopus.core.mocktopus.options.method.MethodOption;
 import com.lacronicus.mocktopus.core.mocktopus.options.observable.ImmediateObservable;
 import com.lacronicus.mocktopus.core.mocktopus.options.observable.ObservableOption;
 
@@ -18,11 +19,12 @@ public class Settings{
 
     Map<Pair<Method, Field>, MethodFieldOption> fieldSettings;
     Map<Method, ObservableOption> observableOptions;
-    Map<Method, MethodFieldOption> methodOptions;
+    Map<Method, MethodOption> methodOptions;
 
     public Settings() {
         fieldSettings = new HashMap<Pair<Method, Field>, MethodFieldOption>();
         observableOptions = new HashMap<Method, ObservableOption>();
+        this.methodOptions = new HashMap<Method, MethodOption>();
     }
 
     //make this a general settings object
@@ -43,6 +45,14 @@ public class Settings{
 
     public ObservableOption getObservableOption(Method method) {
         return observableOptions.get(method);
+    }
+
+    public MethodOption putMethodOption(Method method, MethodOption option) {
+        return methodOptions.put(method, option);
+    }
+
+    public MethodOption getMethodOption(Method method) {
+        return methodOptions.get(method);
     }
 
 }

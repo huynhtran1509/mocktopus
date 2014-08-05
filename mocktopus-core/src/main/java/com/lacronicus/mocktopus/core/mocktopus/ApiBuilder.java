@@ -8,11 +8,14 @@ import com.lacronicus.mocktopus.core.mocktopus.params.MocktopusParamsBuilder;
 
 import java.lang.reflect.Proxy;
 
+import retrofit.ErrorHandler;
+
 /**
  * Created by fdoyle on 8/4/14.
  */
 public class ApiBuilder {
     MocktopusParams params;
+    ErrorHandler handler;
 
     public ApiBuilder() {
         params = new MocktopusParamsBuilder().defaultGlobalParams().build();
@@ -20,6 +23,11 @@ public class ApiBuilder {
 
     public ApiBuilder withCustomParams(MocktopusParams params) {
         this.params = params;
+        return this;
+    }
+
+    public ApiBuilder withRetrofitErrorHandler(ErrorHandler handler) {
+        this.handler = handler;
         return this;
     }
 

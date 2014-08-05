@@ -32,7 +32,7 @@ public class ObjectCreator {
      * @param f               the field the object is about to be put into, null if it's the top-level object
      * @param currentSettings the settings object being used to create new methods
      */
-    public Object createObject(Type returnType, Method method, Field f, Settings currentSettings) {
+    public Object createObject(Type returnType, Method method, Field f, Settings currentSettings) throws RuntimeException {
         log("creating a new object");
         Class<?> returnClass;
         if (returnType instanceof Class) {
@@ -42,7 +42,18 @@ public class ObjectCreator {
         } //is there ever going to be something else?
         try {
             //todo have a list of recognized "complex" classes that can be filled in with specific values
-            if (returnClass.equals(String.class) ||
+            if (Platform.HAS_RX_JAVA && Observable.class.isAssignableFrom(returnClass)) {
+                Type containedClass = ((ParameterizedType) returnType).getActualTypeArguments()[0];
+                Object returnObject;
+                try {
+                    returnObject = createObject(containedClass, method, null, currentSettings);
+                    return currentSettings.getObservableOption(method).createObservableForObject(returnObject);
+                } catch (Exception e) { //todo what happens if retrofit isn't included? will this just never happen? the mystery of exceptions
+                    return currentSettings.getObservableOption(method).createObservableForException(e);
+                }
+            } else if (currentSettings.getMethodOption(method).shouldThrowException()) {//when method is set in "error" mode, let the observable be created, then create the exception
+                throw currentSettings.getMethodOption(method).getErrorIfAny();
+            } else if (returnClass.equals(String.class) ||
                     returnClass.equals(Integer.class) ||
                     returnClass.equals(Long.class) ||
                     returnClass.equals(Float.class) ||
@@ -51,9 +62,6 @@ public class ObjectCreator {
                     returnClass.equals(Boolean.class)) {
                 MethodFieldOption returnOption = currentSettings.get(method, f);
                 return returnOption.getValue();
-            } else if (Platform.HAS_RX_JAVA && Observable.class.isAssignableFrom(returnClass)) {
-                Type containedClass = ((ParameterizedType) returnType).getActualTypeArguments()[0];
-                return  currentSettings.getObservableOption(method).createObservableForObject(createObject(containedClass, method, null, currentSettings));
             } else if (Collection.class.isAssignableFrom(returnClass)) {
                 List<Object> collection = new ArrayList<Object>();
                 Type containedType = ((ParameterizedType) returnType).getActualTypeArguments()[0];

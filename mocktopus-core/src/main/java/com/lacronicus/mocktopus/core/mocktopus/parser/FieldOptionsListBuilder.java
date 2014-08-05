@@ -4,6 +4,7 @@ import com.lacronicus.mocktopus.annotation.string.StringFixed;
 import com.lacronicus.mocktopus.annotation.string.StringImageUrl;
 import com.lacronicus.mocktopus.annotation.string.StringWebpageUrl;
 import com.lacronicus.mocktopus.core.mocktopus.options.MethodFieldOption;
+import com.lacronicus.mocktopus.core.mocktopus.options.method.MethodOption;
 import com.lacronicus.mocktopus.core.mocktopus.options.observable.ObservableOption;
 import com.lacronicus.mocktopus.core.mocktopus.params.MocktopusParams;
 import com.lacronicus.mocktopus.core.mocktopus.params.MocktopusParamsBuilder;
@@ -37,6 +38,10 @@ public class FieldOptionsListBuilder {
 
     public List<ObservableOption> getObservableOptions() {
         return params.getObservableOptions();
+    }
+
+    public List<MethodOption> getMethodOptions() {
+        return params.getMethodOptions();
     }
 
     public List<MethodFieldOption> getStringOptions(Field field) {

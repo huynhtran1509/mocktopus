@@ -1,6 +1,9 @@
 package com.lacronicus.mocktopus.core.mocktopus.params;
 
 import com.lacronicus.mocktopus.core.mocktopus.options.MethodFieldOption;
+import com.lacronicus.mocktopus.core.mocktopus.options.method.FailureMethodOption;
+import com.lacronicus.mocktopus.core.mocktopus.options.method.MethodOption;
+import com.lacronicus.mocktopus.core.mocktopus.options.method.SuccessMethodOption;
 import com.lacronicus.mocktopus.core.mocktopus.options.observable.DelayedObservable;
 import com.lacronicus.mocktopus.core.mocktopus.options.observable.ImmediateObservable;
 import com.lacronicus.mocktopus.core.mocktopus.options.observable.NeverObservable;
@@ -18,10 +21,12 @@ import java.util.Map;
 public class MocktopusParamsBuilder {
     Map<Type, List<MethodFieldOption>> fieldOptions;
     List<ObservableOption> observableOptions;
+    List<MethodOption> methodOptions;
 
     public MocktopusParamsBuilder() {
         fieldOptions = new HashMap<Type, List<MethodFieldOption>>();
         observableOptions = new ArrayList<ObservableOption>();
+        methodOptions = new ArrayList<MethodOption>();
     }
 
     public MocktopusParamsBuilder(MocktopusParams paramsToCopy) {
@@ -80,7 +85,16 @@ public class MocktopusParamsBuilder {
         return this;
     }
 
+    public MocktopusParamsBuilder addMethodOption(MethodOption o) {
+        methodOptions.add(o);
+        return this;
+    }
+
     public MocktopusParamsBuilder defaultGlobalParams() {
+        //add method options //todo add more
+        addMethodOption(new SuccessMethodOption());
+        addMethodOption(new FailureMethodOption());
+
         //add observable options
         addObservableOption(new ImmediateObservable());
         addObservableOption(new DelayedObservable(2000));
@@ -128,6 +142,7 @@ public class MocktopusParamsBuilder {
         MocktopusParams params = new MocktopusParams();
         params.setFieldOptions(fieldOptions);
         params.setObservableOptions(observableOptions);
+        params.setMethodOptions(methodOptions);
         return params;
     }
 }

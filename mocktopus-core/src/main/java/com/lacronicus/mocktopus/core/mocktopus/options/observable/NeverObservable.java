@@ -1,5 +1,6 @@
 package com.lacronicus.mocktopus.core.mocktopus.options.observable;
 
+import retrofit.RetrofitError;
 import rx.Observable;
 
 /**
@@ -14,6 +15,12 @@ public class NeverObservable implements ObservableOption {
 
     @Override
     public <T> Observable<T> createObservableForObject(T o) {
+        return Observable.never();
+    }
+
+
+    @Override
+    public Observable createObservableForException(Exception error) {
         return Observable.never();
     }
 }

@@ -1,5 +1,6 @@
 package com.lacronicus.mocktopus.core.mocktopus.options.observable;
 
+import retrofit.RetrofitError;
 import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -17,5 +18,10 @@ public class ImmediateObservable implements ObservableOption {
     @Override
     public <T> Observable<T> createObservableForObject(T o) {
         return Observable.from(o).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
+    }
+
+    @Override
+    public Observable createObservableForException(Exception error) {
+        return Observable.error(error).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
     }
 }

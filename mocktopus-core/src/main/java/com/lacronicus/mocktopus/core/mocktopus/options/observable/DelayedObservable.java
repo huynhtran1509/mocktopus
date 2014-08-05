@@ -2,6 +2,7 @@ package com.lacronicus.mocktopus.core.mocktopus.options.observable;
 
 import java.util.concurrent.TimeUnit;
 
+import retrofit.RetrofitError;
 import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -25,5 +26,10 @@ public class DelayedObservable implements ObservableOption {
     @Override
     public <T> Observable<T> createObservableForObject(T o) {
         return Observable.from(o).delay(millis, TimeUnit.MILLISECONDS).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());//this delay thing can be flaky. seems to work with this particular setup though
+    }
+
+    @Override
+    public Observable createObservableForException(Exception error) {
+        return Observable.error(error).delay(millis, TimeUnit.MILLISECONDS).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
     }
 }

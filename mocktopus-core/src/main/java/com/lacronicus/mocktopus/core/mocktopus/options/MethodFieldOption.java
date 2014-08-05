@@ -1,5 +1,9 @@
 package com.lacronicus.mocktopus.core.mocktopus.options;
 
+import com.lacronicus.mocktopus.core.mocktopus.options.method.MethodOption;
+
+import java.util.List;
+
 /**
  * Created by fdoyle on 8/4/14.
  */

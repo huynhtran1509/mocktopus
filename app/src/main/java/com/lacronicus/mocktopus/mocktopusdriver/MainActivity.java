@@ -41,6 +41,11 @@ public class MainActivity extends BaseActivity implements ShakeDetector.Listener
             public void call(MyModel myModel) {
                 setText(myModel);
             }
+        }, new Action1<Throwable>() {
+            @Override
+            public void call(Throwable throwable) {
+                setText("error occurred");
+            }
         });
         SensorManager sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         ShakeDetector sd = new ShakeDetector(this);
@@ -56,6 +61,10 @@ public class MainActivity extends BaseActivity implements ShakeDetector.Listener
     public void setText(Object o) {
         t.setText("myModel response converted to json:\n" + gson.toJson(o));
         Linkify.addLinks(t, Linkify.ALL);
+    }
+
+    public void setText(String s) {
+        t.setText(s);
     }
 
     @Override
