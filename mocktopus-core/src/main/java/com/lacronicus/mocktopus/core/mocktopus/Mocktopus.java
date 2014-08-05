@@ -9,7 +9,11 @@ import com.lacronicus.mocktopus.core.mocktopus.invocationhandler.MockInvocationH
 import com.lacronicus.mocktopus.core.mocktopus.params.MocktopusParams;
 
 import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -73,6 +77,19 @@ public class Mocktopus {
 
     public Set<Type> getApiSet() {
         return services.keySet();
+    }
+
+    public List<Type> getApiList() {
+        ArrayList<Type> arrayList = new ArrayList<Type>(getApiSet());
+        Collections.sort(arrayList, new Comparator<Object>() {
+            @Override
+            public int compare(Object lhs, Object rhs) {
+                String lhsName =((Class) lhs).getSimpleName();
+                String rhsName = ((Class) rhs).getSimpleName();
+                return lhsName.compareTo(rhsName);
+            }
+        });
+        return arrayList;
     }
 
     public static void showConfigScreen(Activity activity) {
