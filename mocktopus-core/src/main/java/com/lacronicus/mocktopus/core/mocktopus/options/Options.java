@@ -2,6 +2,7 @@ package com.lacronicus.mocktopus.core.mocktopus.options;
 
 import android.util.Log;
 
+import com.lacronicus.mocktopus.core.mocktopus.Platform;
 import com.lacronicus.mocktopus.core.mocktopus.Settings;
 import com.lacronicus.mocktopus.core.mocktopus.FlattenedOptions;
 import com.lacronicus.mocktopus.core.mocktopus.Tag;
@@ -71,16 +72,18 @@ public class Options {
         for (Method method : methodSet) {
             //add method to flattenedOptions
             String endpoint = "";
-            if (method.getAnnotation(GET.class) != null)
-                endpoint += method.getAnnotation(GET.class).value();
-            if (method.getAnnotation(POST.class) != null)
-                endpoint += method.getAnnotation(POST.class).value();
-            if (method.getAnnotation(PUT.class) != null)
-                endpoint += method.getAnnotation(PUT.class).value();
-            if (method.getAnnotation(DELETE.class) != null)
-                endpoint += method.getAnnotation(DELETE.class).value();
-            if (method.getAnnotation(HEAD.class) != null)
-                endpoint += method.getAnnotation(HEAD.class).value();
+            if(Platform.HAS_RETROFIT) {
+                if (method.getAnnotation(GET.class) != null)
+                    endpoint += method.getAnnotation(GET.class).value();
+                if (method.getAnnotation(POST.class) != null)
+                    endpoint += method.getAnnotation(POST.class).value();
+                if (method.getAnnotation(PUT.class) != null)
+                    endpoint += method.getAnnotation(PUT.class).value();
+                if (method.getAnnotation(DELETE.class) != null)
+                    endpoint += method.getAnnotation(DELETE.class).value();
+                if (method.getAnnotation(HEAD.class) != null)
+                    endpoint += method.getAnnotation(HEAD.class).value();
+            }
 
             flattenedOptions.addMethod(method, endpoint);
             //add fields to flattenedOptions

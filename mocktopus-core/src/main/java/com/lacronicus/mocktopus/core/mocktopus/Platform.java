@@ -3,10 +3,8 @@ package com.lacronicus.mocktopus.core.mocktopus;
 import android.util.Log;
 
 public class Platform {
-
-    static final boolean HAS_RX_JAVA = hasRxJavaOnClasspath();
-    static final boolean HAS_RETROFIT = hasRetrofitOnClaspath();
-
+    public static final boolean HAS_RX_JAVA = hasRxJavaOnClasspath();
+    public static final boolean HAS_RETROFIT = hasRetrofitOnClaspath();
 
     private static boolean hasRxJavaOnClasspath() {
         try {
