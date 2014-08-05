@@ -3,16 +3,16 @@ package com.lacronicus.mocktopus.core.mocktopus.options;
 /**
  * Created by fdoyle on 8/4/14.
  */
-public class Option {
-    Object value;
+public class MethodFieldOption<T> {
+    T value;
     String description;
 
-    public Option(Object setting) {
+    public MethodFieldOption(T setting) {
         this.value = setting;
         this.description = setting.toString();
     }
 
-    public Option(String description, Object setting) {
+    public MethodFieldOption(String description, T setting) {
         this.value = setting;
         this.description = description;
     }
@@ -35,8 +35,8 @@ public class Option {
     //rethink equality here. do i only need to care about values, or should descriptions matter too?
     @Override
     public boolean equals(Object o) {
-        if (o != null && o instanceof Option) {
-            Option option = (Option) o;
+        if (o != null && o instanceof MethodFieldOption) {
+            MethodFieldOption option = (MethodFieldOption) o;
             if (value != null && description != null) {
                 return value.equals(option.value) && description.equals(option.description);
             } else if (value != null) {
@@ -49,7 +49,7 @@ public class Option {
         }
     }
 
-    public static Option nullOption() {
-        return new Option("(null)", null);
+    public static MethodFieldOption nullOption() {
+        return new MethodFieldOption("(null)", null);
     }
 }

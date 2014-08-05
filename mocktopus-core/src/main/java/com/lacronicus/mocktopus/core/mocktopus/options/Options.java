@@ -2,7 +2,7 @@ package com.lacronicus.mocktopus.core.mocktopus.options;
 
 import android.util.Log;
 
-import com.lacronicus.mocktopus.core.mocktopus.FieldSettings;
+import com.lacronicus.mocktopus.core.mocktopus.Settings;
 import com.lacronicus.mocktopus.core.mocktopus.FlattenedOptions;
 import com.lacronicus.mocktopus.core.mocktopus.Tag;
 import com.lacronicus.mocktopus.core.mocktopus.parser.FieldOptionsListBuilder;
@@ -92,8 +92,8 @@ public class Options {
     }
 
 
-    public FieldSettings getDefaultFieldSettings() {
-        FieldSettings settings = new FieldSettings();
+    public Settings getDefaultFieldSettings() {
+        Settings settings = new Settings();
         for (IOptionsNode node : methodOptions.values()) {
             node.addDefaultSettingsTo(settings);
         }

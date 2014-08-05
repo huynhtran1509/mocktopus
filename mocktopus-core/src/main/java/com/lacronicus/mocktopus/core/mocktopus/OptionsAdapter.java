@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 
 import com.lacronicus.mocktopus.core.R;
-import com.lacronicus.mocktopus.core.mocktopus.options.Option;
+import com.lacronicus.mocktopus.core.mocktopus.options.MethodFieldOption;
 import com.lacronicus.mocktopus.core.mocktopus.view.ItemClassView;
 import com.lacronicus.mocktopus.core.mocktopus.view.ItemFieldView;
 import com.lacronicus.mocktopus.core.mocktopus.view.ItemMethodView;
@@ -19,7 +19,7 @@ import com.lacronicus.mocktopus.core.mocktopus.view.ItemOptionView;
  */
 public class OptionsAdapter extends BaseExpandableListAdapter {
     FlattenedOptions options;
-    FieldSettings settings;
+    Settings settings;
 
     Context c;
     LayoutInflater inflater;
@@ -29,7 +29,7 @@ public class OptionsAdapter extends BaseExpandableListAdapter {
         inflater = LayoutInflater.from(c);
     }
 
-    public void setContent(FlattenedOptions options, FieldSettings settings) {
+    public void setContent(FlattenedOptions options, Settings settings) {
         this.options = options;
         this.settings = settings;
     }
@@ -149,9 +149,9 @@ public class OptionsAdapter extends BaseExpandableListAdapter {
             case FlattenedOptions.FlatOptionsItem.TYPE_CLASS:
                 break;
             case FlattenedOptions.FlatOptionsItem.TYPE_FIELD:
-                Option option = group.methodFieldItem.fieldOptions.get(childPosition);
+                MethodFieldOption option = group.methodFieldItem.fieldOptions.get(childPosition);
                 optionView.text.setText(String.valueOf(option));
-                Option currentOption = settings.get(item.methodFieldItem.method, item.methodFieldItem.field);
+                MethodFieldOption currentOption = settings.get(item.methodFieldItem.method, item.methodFieldItem.field);
                 if(option.equals(currentOption)) {
                     optionView.setBackgroundColor(c.getResources().getColor(R.color.cyan200));
                 } else {

@@ -1,8 +1,6 @@
 package com.lacronicus.mocktopus.core.mocktopus.options;
 
-import android.util.Pair;
-
-import com.lacronicus.mocktopus.core.mocktopus.FieldSettings;
+import com.lacronicus.mocktopus.core.mocktopus.Settings;
 import com.lacronicus.mocktopus.core.mocktopus.FlattenedOptions;
 import com.lacronicus.mocktopus.core.mocktopus.parser.FieldOptionsListBuilder;
 
@@ -14,9 +12,11 @@ import java.util.List;
 
 /**
  * Created by fdoyle on 7/25/14.
+ *
+ * "Leaf" as would exist in a tree
  */
 public class LeafOptionsNode implements IOptionsNode {
-    List<Option> options;
+    List<MethodFieldOption> options;
     Method method; // the method this OptionsNode is being created for
     Field field; // the field this is going into
     Type layerType; // the type of the thing this represents
@@ -24,7 +24,7 @@ public class LeafOptionsNode implements IOptionsNode {
 
     //field may, in very rare circumstances, be null"
     public LeafOptionsNode(FieldOptionsListBuilder optionsBuilder, Method method, Field field, Type layerType, int depth) {
-        options = new ArrayList<Option>();
+        options = new ArrayList<MethodFieldOption>();
         this.method = method;
         this.field = field;
         this.layerType = layerType;
@@ -64,7 +64,7 @@ public class LeafOptionsNode implements IOptionsNode {
     }
 
     @Override
-    public void addDefaultSettingsTo(FieldSettings toAdd) {
-        toAdd.put(new Pair<Method, Field>(method, field), options.get(0));
+    public void addDefaultSettingsTo(Settings toAdd) {
+        toAdd.put(method, field, options.get(0));
     }
 }

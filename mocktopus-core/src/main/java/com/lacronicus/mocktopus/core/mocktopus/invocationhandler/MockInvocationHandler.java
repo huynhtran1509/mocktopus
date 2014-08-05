@@ -1,6 +1,6 @@
 package com.lacronicus.mocktopus.core.mocktopus.invocationhandler;
 
-import com.lacronicus.mocktopus.core.mocktopus.FieldSettings;
+import com.lacronicus.mocktopus.core.mocktopus.Settings;
 import com.lacronicus.mocktopus.core.mocktopus.FlattenedOptions;
 import com.lacronicus.mocktopus.core.mocktopus.ObjectCreator;
 import com.lacronicus.mocktopus.core.mocktopus.options.Options;
@@ -17,7 +17,7 @@ import java.lang.reflect.Method;
 public class MockInvocationHandler implements InvocationHandler {
 
     Options options;
-    FieldSettings settings;
+    Settings settings;
     Class api;
 
 
@@ -50,7 +50,7 @@ public class MockInvocationHandler implements InvocationHandler {
         return options.flatten();
     }
 
-    public FieldSettings getSettings() {
+    public Settings getSettings() {
         return settings;
     }
 

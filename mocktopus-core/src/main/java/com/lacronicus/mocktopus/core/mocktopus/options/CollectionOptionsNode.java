@@ -1,6 +1,6 @@
 package com.lacronicus.mocktopus.core.mocktopus.options;
 
-import com.lacronicus.mocktopus.core.mocktopus.FieldSettings;
+import com.lacronicus.mocktopus.core.mocktopus.Settings;
 import com.lacronicus.mocktopus.core.mocktopus.FlattenedOptions;
 import com.lacronicus.mocktopus.core.mocktopus.parser.FieldOptionsListBuilder;
 
@@ -61,7 +61,7 @@ public class CollectionOptionsNode implements IOptionsNode {
         node.addToFlattenedOptions(flattenedOptions);
     }
 
-    public void addDefaultSettingsTo(FieldSettings toAdd) {
+    public void addDefaultSettingsTo(Settings toAdd) {
         node.addDefaultSettingsTo(toAdd);
     }
 
