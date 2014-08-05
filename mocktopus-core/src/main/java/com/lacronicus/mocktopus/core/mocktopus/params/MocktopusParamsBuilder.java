@@ -101,7 +101,7 @@ public class MocktopusParamsBuilder {
         addInteger(-1);
         addInteger(-9999999);
         //add longs
-        addLong(new Long(1000));
+        addLong(new Long(1000)); //todo adding a plain int causes problems later. any way around this?
         addLong(Long.MAX_VALUE);
         addLong(Long.MIN_VALUE);
         //add floats
