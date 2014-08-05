@@ -1,6 +1,10 @@
 package com.lacronicus.mocktopus.core.mocktopus.params;
 
 import com.lacronicus.mocktopus.core.mocktopus.options.MethodFieldOption;
+import com.lacronicus.mocktopus.core.mocktopus.options.observable.DelayedObservable;
+import com.lacronicus.mocktopus.core.mocktopus.options.observable.ImmediateObservable;
+import com.lacronicus.mocktopus.core.mocktopus.options.observable.NeverObservable;
+import com.lacronicus.mocktopus.core.mocktopus.options.observable.ObservableOption;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -13,21 +17,24 @@ import java.util.Map;
  */
 public class MocktopusParamsBuilder {
     Map<Type, List<MethodFieldOption>> fieldOptions;
+    List<ObservableOption> observableOptions;
 
     public MocktopusParamsBuilder() {
         fieldOptions = new HashMap<Type, List<MethodFieldOption>>();
+        observableOptions = new ArrayList<ObservableOption>();
     }
 
     public MocktopusParamsBuilder(MocktopusParams paramsToCopy) {
         this.fieldOptions = paramsToCopy.getFieldOptions();
+        this.observableOptions = paramsToCopy.observableOptions;
     }
 
     protected MocktopusParamsBuilder addFieldOption(Type fieldType, MethodFieldOption option) {
         List<MethodFieldOption> options;
         if(fieldOptions.containsKey(fieldType)) {
-            options = fieldOptions.get(fieldType);
+            fieldOptions.get(fieldType);
         } else {
-            options = fieldOptions.put(fieldType, new ArrayList<MethodFieldOption>());
+            fieldOptions.put(fieldType, new ArrayList<MethodFieldOption>());
         }
         fieldOptions.get(fieldType).add(option);
         return this;
@@ -68,9 +75,17 @@ public class MocktopusParamsBuilder {
         return this;
     }
 
-
+    public MocktopusParamsBuilder addObservableOption(ObservableOption o) {
+        observableOptions.add(o);
+        return this;
+    }
 
     public MocktopusParamsBuilder defaultGlobalParams() {
+        //add observable options
+        addObservableOption(new ImmediateObservable());
+        addObservableOption(new DelayedObservable());
+        addObservableOption(new NeverObservable());
+
         //add strings
         addString("simple string");
         addString("multi\nline\nstring");
@@ -112,6 +127,7 @@ public class MocktopusParamsBuilder {
     public MocktopusParams build() {
         MocktopusParams params = new MocktopusParams();
         params.setFieldOptions(fieldOptions);
+        params.setObservableOptions(observableOptions);
         return params;
     }
 }

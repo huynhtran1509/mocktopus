@@ -1,6 +1,7 @@
 package com.lacronicus.mocktopus.core.mocktopus;
 
 import com.lacronicus.mocktopus.core.mocktopus.options.MethodFieldOption;
+import com.lacronicus.mocktopus.core.mocktopus.options.observable.ObservableOption;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -39,8 +40,8 @@ public class FlattenedOptions {
         itemList.add(new FlatOptionsItem(new CollectionObjectItem(type, parameterType)));
     }
 
-    public void addObservable(Type type, Type parameterType) {
-        itemList.add(new FlatOptionsItem(new ObservableObjectItem(type, parameterType)));
+    public void addObservable(Method m, Type type, Type parameterType, List<ObservableOption> observableOptions) {
+        itemList.add(new FlatOptionsItem(new ObservableObjectItem(m, type, parameterType, observableOptions)));
     }
 
 
@@ -183,12 +184,16 @@ public class FlattenedOptions {
 
     //represents a collection
     public class ObservableObjectItem {
+        public Method method;
         public Type clazz;
         public Type genericClass;
+        public List<ObservableOption> observableOptions;
 
-        public ObservableObjectItem(Type clazz, Type genericClass) {
+        public ObservableObjectItem(Method m, Type clazz, Type genericClass, List<ObservableOption> observableOptions) {
+            this.method = m;
             this.clazz = clazz;
             this.genericClass = genericClass;
+            this.observableOptions = observableOptions;
         }
 
         public String getString() {

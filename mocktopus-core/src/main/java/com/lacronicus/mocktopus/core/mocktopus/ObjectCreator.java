@@ -51,10 +51,9 @@ public class ObjectCreator {
                 MethodFieldOption returnOption = currentSettings.get(method, f);
                 return returnOption.getValue();
             } else if (Observable.class.isAssignableFrom(returnClass)) {
-
                 Type containedClass = ((ParameterizedType) returnType).getActualTypeArguments()[0];
                 //return Observable.from(createObject(containedClass, method, null, currentSettings));
-                return  currentSettings.observableOption.createObservableForObject(createObject(containedClass, method, null, currentSettings));
+                return  currentSettings.getObservableOption(method).createObservableForObject(createObject(containedClass, method, null, currentSettings));
             } else if (Collection.class.isAssignableFrom(returnClass)) {
                 List<Object> collection = new ArrayList<Object>();
                 Type containedType = ((ParameterizedType) returnType).getActualTypeArguments()[0];

@@ -17,11 +17,12 @@ import java.util.Map;
 public class Settings{
 
     Map<Pair<Method, Field>, MethodFieldOption> fieldSettings;
-    ObservableOption observableOption = new ImmediateObservable();
+    Map<Method, ObservableOption> observableOptions;
     Map<Method, MethodFieldOption> methodOptions;
 
     public Settings() {
         fieldSettings = new HashMap<Pair<Method, Field>, MethodFieldOption>();
+        observableOptions = new HashMap<Method, ObservableOption>();
     }
 
     //make this a general settings object
@@ -34,6 +35,14 @@ public class Settings{
 
     public MethodFieldOption get(Method method, Field field) {
         return fieldSettings.get(new Pair<Method, Field>(method, field));
+    }
+
+    public ObservableOption putObservableOption(Method method, ObservableOption option) {
+        return observableOptions.put(method, option);
+    }
+
+    public ObservableOption getObservableOption(Method method) {
+        return observableOptions.get(method);
     }
 
 }

@@ -18,12 +18,16 @@ public class ObservableOptionsNode implements IOptionsNode {
 
     List<ObservableOption> options;
 
+    Method method;
     IOptionsNode childNode;
     Type containerType;
     Type parameterType;
 
 
     public ObservableOptionsNode(FieldOptionsListBuilder optionsListBuilder, Method m, Type myType, Type childType, int depth) {
+        options = optionsListBuilder.getObservableOptions();
+        this.method = m;
+
         Class<?> childClass;
         if(childType instanceof Class) {
             childClass = (Class<?>) childType;
@@ -42,11 +46,13 @@ public class ObservableOptionsNode implements IOptionsNode {
     }
 
     public void addToFlattenedOptions(FlattenedOptions flattenedOptions) {
-        flattenedOptions.addObservable(containerType, parameterType);
+        flattenedOptions.addObservable(method, containerType, parameterType, options);
         childNode.addToFlattenedOptions(flattenedOptions);
     }
 
     public void addDefaultSettingsTo(Settings toAdd) {
         childNode.addDefaultSettingsTo(toAdd);
+        toAdd.putObservableOption(method, options.get(0));//todo
+        // what if there are none?
     }
 }

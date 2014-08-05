@@ -8,6 +8,7 @@ import android.widget.BaseExpandableListAdapter;
 
 import com.lacronicus.mocktopus.core.R;
 import com.lacronicus.mocktopus.core.mocktopus.options.MethodFieldOption;
+import com.lacronicus.mocktopus.core.mocktopus.options.observable.ObservableOption;
 import com.lacronicus.mocktopus.core.mocktopus.view.ItemClassView;
 import com.lacronicus.mocktopus.core.mocktopus.view.ItemFieldView;
 import com.lacronicus.mocktopus.core.mocktopus.view.ItemMethodView;
@@ -48,7 +49,7 @@ public class OptionsAdapter extends BaseExpandableListAdapter {
             case FlattenedOptions.FlatOptionsItem.TYPE_METHOD:
                 return 0;//todo
             case FlattenedOptions.FlatOptionsItem.TYPE_OBSERVABLE:
-                return 0;//todo
+                return getGroup(groupPosition).observableObjectItem.observableOptions.size();
             case FlattenedOptions.FlatOptionsItem.TYPE_COLLECTION:
                 return 0;//todo
             case FlattenedOptions.FlatOptionsItem.TYPE_CLASS:
@@ -142,22 +143,33 @@ public class OptionsAdapter extends BaseExpandableListAdapter {
         switch (group.getType()) {
             case FlattenedOptions.FlatOptionsItem.TYPE_METHOD:
                 break;
-            case FlattenedOptions.FlatOptionsItem.TYPE_OBSERVABLE:
-                break;
-            case FlattenedOptions.FlatOptionsItem.TYPE_COLLECTION:
-                break;
-            case FlattenedOptions.FlatOptionsItem.TYPE_CLASS:
-                break;
-            case FlattenedOptions.FlatOptionsItem.TYPE_FIELD:
-                MethodFieldOption option = group.methodFieldItem.fieldOptions.get(childPosition);
-                optionView.text.setText(String.valueOf(option));
-                MethodFieldOption currentOption = settings.get(item.methodFieldItem.method, item.methodFieldItem.field);
-                if(option.equals(currentOption)) {
+            case FlattenedOptions.FlatOptionsItem.TYPE_OBSERVABLE: {
+                //MethodFieldOption option = group.methodFieldItem.fieldOptions.get(childPosition);
+                ObservableOption observableOption = group.observableObjectItem.observableOptions.get(childPosition);
+                optionView.text.setText(observableOption.getDescription());
+                ObservableOption currentOption = settings.getObservableOption(item.observableObjectItem.method);
+                if (observableOption.equals(currentOption)) {
                     optionView.setBackgroundColor(c.getResources().getColor(R.color.cyan200));
                 } else {
                     optionView.setBackgroundColor(c.getResources().getColor(R.color.white));
                 }
-                return optionView;
+                break;
+            }
+            case FlattenedOptions.FlatOptionsItem.TYPE_COLLECTION:
+                break;
+            case FlattenedOptions.FlatOptionsItem.TYPE_CLASS:
+                break;
+            case FlattenedOptions.FlatOptionsItem.TYPE_FIELD: {
+                MethodFieldOption option = group.methodFieldItem.fieldOptions.get(childPosition);
+                optionView.text.setText(String.valueOf(option));
+                MethodFieldOption currentOption = settings.get(item.methodFieldItem.method, item.methodFieldItem.field);
+                if (option.equals(currentOption)) {
+                    optionView.setBackgroundColor(c.getResources().getColor(R.color.cyan200));
+                } else {
+                    optionView.setBackgroundColor(c.getResources().getColor(R.color.white));
+                }
+                break;
+            }
             case FlattenedOptions.FlatOptionsItem.TYPE_INVALID:
             default:
                 break;

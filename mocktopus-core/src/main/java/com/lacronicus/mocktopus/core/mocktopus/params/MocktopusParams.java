@@ -4,6 +4,7 @@ import com.lacronicus.mocktopus.core.mocktopus.options.MethodFieldOption;
 import com.lacronicus.mocktopus.core.mocktopus.options.observable.ObservableOption;
 
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,16 +12,15 @@ import java.util.Map;
 /**
  * Created by fdoyle on 8/4/14.
  *
- * todo rename this to something more descriptive,
- * "params" is too generic to really say what this does or where it's used
+ * ideally, this should be immutable
  *
- * this is immutable
- *
- * //todo this is where error setting goes
+ * todo: break this up. observables should be in an optional modules, and errors (which would otherwise go here)
+ * are too tied to retrofit to be in the core module
  */
 public class MocktopusParams{
 
     Map<Type, List<MethodFieldOption>> fieldOptions;
+    List<ObservableOption> observableOptions;
 
     public MocktopusParams() {
         fieldOptions = new HashMap<Type, List<MethodFieldOption>>();
@@ -38,4 +38,14 @@ public class MocktopusParams{
     public List<MethodFieldOption> getOptionsForType(Type type) {
         return fieldOptions.get(type);
     }
+
+    public void setObservableOptions(List<ObservableOption> observableOptions) {
+        this.observableOptions = new ArrayList<ObservableOption>();
+        this.observableOptions.addAll(observableOptions);
+    }
+
+    public List<ObservableOption> getObservableOptions() {
+        return observableOptions;
+    }
+
 }
