@@ -80,7 +80,7 @@ public class Mocktopus {
     }
 
     public List<Type> getApiList() {
-        ArrayList<Type> arrayList = new ArrayList<Type>(getApiSet());
+        List<Type> arrayList = new ArrayList<Type>(getApiSet());
         Collections.sort(arrayList, new Comparator<Object>() {
             @Override
             public int compare(Object lhs, Object rhs) {

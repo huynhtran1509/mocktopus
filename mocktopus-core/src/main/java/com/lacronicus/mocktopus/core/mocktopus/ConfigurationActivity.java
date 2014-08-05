@@ -9,6 +9,7 @@ import com.lacronicus.mocktopus.core.mocktopus.invocationhandler.MockInvocationH
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by fdoyle on 7/10/14.
@@ -16,13 +17,13 @@ import java.util.ArrayList;
  */
 public class ConfigurationActivity extends FragmentActivity {
     ViewPager vp;
-    ArrayList<Type> services;
+    List<Type> services;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mock_settings);
-        services = new ArrayList<Type>(Mocktopus.getInstance().getApiSet());
+        services = Mocktopus.getInstance().getApiList();
         vp = (ViewPager) findViewById(R.id.vp);
         ConfigFragmentAdapter adapter = new ConfigFragmentAdapter(getSupportFragmentManager(), this);
         vp.setAdapter(adapter);
