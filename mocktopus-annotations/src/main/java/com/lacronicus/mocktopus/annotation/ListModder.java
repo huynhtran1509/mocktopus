@@ -1,6 +1,6 @@
-package com.lacronicus.mocktopus.core.mocktopus.annotation.collection;
+package com.lacronicus.mocktopus.annotation;
 
-import com.lacronicus.mocktopus.core.mocktopus.modder.IListModder;
+import com.lacronicus.mocktopus.annotation.modder.IListModder;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

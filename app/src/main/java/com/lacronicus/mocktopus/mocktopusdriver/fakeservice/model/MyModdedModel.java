@@ -1,7 +1,7 @@
 package com.lacronicus.mocktopus.mocktopusdriver.fakeservice.model;
 
-import com.lacronicus.mocktopus.core.mocktopus.annotation.collection.ListModder;
-import com.lacronicus.mocktopus.core.mocktopus.modder.IListModder;
+import com.lacronicus.mocktopus.annotation.ListModder;
+import com.lacronicus.mocktopus.annotation.modder.IListModder;
 
 import java.util.List;
 

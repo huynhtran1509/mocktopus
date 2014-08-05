@@ -5,9 +5,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
-import android.widget.TextView;
 
 import com.lacronicus.mocktopus.core.R;
+import com.lacronicus.mocktopus.core.mocktopus.options.MethodFieldOption;
+import com.lacronicus.mocktopus.core.mocktopus.options.observable.ObservableOption;
 import com.lacronicus.mocktopus.core.mocktopus.view.ItemClassView;
 import com.lacronicus.mocktopus.core.mocktopus.view.ItemFieldView;
 import com.lacronicus.mocktopus.core.mocktopus.view.ItemMethodView;
@@ -15,9 +16,11 @@ import com.lacronicus.mocktopus.core.mocktopus.view.ItemOptionView;
 
 /**
  * Created by fdoyle on 7/15/14.
+ * todo make this better re. design, backing model, etc
  */
 public class OptionsAdapter extends BaseExpandableListAdapter {
     FlattenedOptions options;
+    Settings settings;
 
     Context c;
     LayoutInflater inflater;
@@ -27,8 +30,9 @@ public class OptionsAdapter extends BaseExpandableListAdapter {
         inflater = LayoutInflater.from(c);
     }
 
-    public void setContent(FlattenedOptions options) {
+    public void setContent(FlattenedOptions options, Settings settings) {
         this.options = options;
+        this.settings = settings;
     }
 
 
@@ -45,7 +49,7 @@ public class OptionsAdapter extends BaseExpandableListAdapter {
             case FlattenedOptions.FlatOptionsItem.TYPE_METHOD:
                 return 0;//todo
             case FlattenedOptions.FlatOptionsItem.TYPE_OBSERVABLE:
-                return 0;//todo
+                return getGroup(groupPosition).observableObjectItem.observableOptions.size();
             case FlattenedOptions.FlatOptionsItem.TYPE_COLLECTION:
                 return 0;//todo
             case FlattenedOptions.FlatOptionsItem.TYPE_CLASS:
@@ -129,33 +133,48 @@ public class OptionsAdapter extends BaseExpandableListAdapter {
     @Override
     public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
         FlattenedOptions.FlatOptionsItem item = options.itemList.get(groupPosition);
-        TextView t = new TextView(c);
-        t.setPadding(20, 20, 20, 20);
+        ItemOptionView optionView;//this is just a textview for all options, break it out into multiples if that ever becomes necessary
+        if(convertView == null) {
+            optionView = (ItemOptionView) inflater.inflate(R.layout.mock_item_option, parent, false);
+        } else {
+            optionView = (ItemOptionView) convertView;
+        }
         FlattenedOptions.FlatOptionsItem group = getGroup(groupPosition);
         switch (group.getType()) {
             case FlattenedOptions.FlatOptionsItem.TYPE_METHOD:
                 break;
-            case FlattenedOptions.FlatOptionsItem.TYPE_OBSERVABLE:
+            case FlattenedOptions.FlatOptionsItem.TYPE_OBSERVABLE: {
+                //MethodFieldOption option = group.methodFieldItem.fieldOptions.get(childPosition);
+                ObservableOption observableOption = group.observableObjectItem.observableOptions.get(childPosition);
+                optionView.text.setText(observableOption.getDescription());
+                ObservableOption currentOption = settings.getObservableOption(item.observableObjectItem.method);
+                if (observableOption.equals(currentOption)) {
+                    optionView.setBackgroundColor(c.getResources().getColor(R.color.cyan200));
+                } else {
+                    optionView.setBackgroundColor(c.getResources().getColor(R.color.white));
+                }
                 break;
+            }
             case FlattenedOptions.FlatOptionsItem.TYPE_COLLECTION:
                 break;
             case FlattenedOptions.FlatOptionsItem.TYPE_CLASS:
                 break;
-            case FlattenedOptions.FlatOptionsItem.TYPE_FIELD:
-                ItemOptionView optionView;
-                if(convertView == null) {
-                    optionView = (ItemOptionView) inflater.inflate(R.layout.mock_item_option, parent, false);
-                } else {
-                    optionView = (ItemOptionView) convertView;
-                }
-                Object option = group.methodFieldItem.fieldOptions.get(childPosition);
+            case FlattenedOptions.FlatOptionsItem.TYPE_FIELD: {
+                MethodFieldOption option = group.methodFieldItem.fieldOptions.get(childPosition);
                 optionView.text.setText(String.valueOf(option));
-                return optionView;
+                MethodFieldOption currentOption = settings.get(item.methodFieldItem.method, item.methodFieldItem.field);
+                if (option.equals(currentOption)) {
+                    optionView.setBackgroundColor(c.getResources().getColor(R.color.cyan200));
+                } else {
+                    optionView.setBackgroundColor(c.getResources().getColor(R.color.white));
+                }
+                break;
+            }
             case FlattenedOptions.FlatOptionsItem.TYPE_INVALID:
             default:
                 break;
         }
-        return t;
+        return optionView;
     }
 
     @Override

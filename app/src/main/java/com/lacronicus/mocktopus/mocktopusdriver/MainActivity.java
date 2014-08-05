@@ -4,9 +4,7 @@ import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.text.util.Linkify;
 import android.view.Menu;
-import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -38,12 +36,6 @@ public class MainActivity extends BaseActivity implements ShakeDetector.Listener
         setContentView(R.layout.activity_main);
         gson = new GsonBuilder().setPrettyPrinting().create();
         t = (TextView) findViewById(R.id.tv);
-        /*fakeService.returnStringList().subscribe(new Action1<List<String>>() {
-            @Override
-            public void call(List<String> strings) {
-                setText(strings);
-            }
-        });*/
         fakeService.returnMyModelObservable().subscribe(new Action1<MyModel>() {
             @Override
             public void call(MyModel myModel) {

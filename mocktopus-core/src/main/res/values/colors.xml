@@ -4,6 +4,7 @@
     </color>
 
     Cyan
+    <color name="white">#FFF</color>
     <color name="cyan">@color/cyan500</color>
     <color name="cyan50">#e0f7fa</color>
     <color name="cyan100">#b2ebf2</color>

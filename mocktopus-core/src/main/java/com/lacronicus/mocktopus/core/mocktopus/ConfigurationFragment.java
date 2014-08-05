@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ExpandableListView;
 
 import com.lacronicus.mocktopus.core.R;
+import com.lacronicus.mocktopus.core.mocktopus.invocationhandler.MockInvocationHandler;
 
 
 /**
@@ -31,17 +32,25 @@ public class ConfigurationFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         lv = (ExpandableListView) view.findViewById(R.id.lv);
         final OptionsAdapter adapter = new OptionsAdapter(getActivity());
-        adapter.setContent(handler.getFlattenedOptions());
+        adapter.setContent(handler.getFlattenedOptions(), handler.getSettings());
         lv.setAdapter(adapter);
         lv.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
             @Override
             public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
-                FieldSettings settings = handler.getSettings();
+                Settings settings = handler.getSettings();
                 switch (adapter.getGroup(groupPosition).getType()) {
-                    case FlattenedOptions.FlatOptionsItem.TYPE_FIELD:
+                    case FlattenedOptions.FlatOptionsItem.TYPE_FIELD: {
                         FlattenedOptions.MethodFieldItem item = adapter.getGroup(groupPosition).methodFieldItem; //currently the
-                        settings.put(item.getPair(), item.fieldOptions.get(childPosition));
+                        settings.put(item.method, item.field, item.fieldOptions.get(childPosition));
+                        adapter.notifyDataSetChanged();
                         break;
+                    }
+                    case FlattenedOptions.FlatOptionsItem.TYPE_OBSERVABLE: {
+                        FlattenedOptions.ObservableObjectItem item = adapter.getGroup(groupPosition).observableObjectItem;
+                        settings.putObservableOption(item.method, item.observableOptions.get(childPosition));
+                        adapter.notifyDataSetChanged();
+                        break;
+                    }
                     default:
                         break;
 

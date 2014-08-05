@@ -1,6 +1,7 @@
 package com.lacronicus.mocktopus.core.mocktopus;
 
-import android.util.Pair;
+import com.lacronicus.mocktopus.core.mocktopus.options.MethodFieldOption;
+import com.lacronicus.mocktopus.core.mocktopus.options.observable.ObservableOption;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -11,6 +12,9 @@ import java.util.List;
 /**
  * Created by fdoyle on 7/16/14.
  * represents a flat list of options (for UI purposes) rather than the tree structure Options usually takes
+ *
+ * todo I really don't like this, feels really brittle. there's no inherent order to it, just however stuff was put into it.
+ * of course, that's how sorting trees works, so maybe it's not so bad.
  */
 public class FlattenedOptions {
     public List<FlatOptionsItem> itemList;
@@ -28,7 +32,7 @@ public class FlattenedOptions {
         itemList.add(new FlatOptionsItem(new ChildObjectItem(clazz)));
     }
 
-    public void addField(Method m, Field f, Type layerType, List<Object> options) {
+    public void addField(Method m, Field f, Type layerType, List<MethodFieldOption> options) {
         itemList.add(new FlatOptionsItem(new MethodFieldItem(m, f, layerType, options)));
     }
 
@@ -36,8 +40,8 @@ public class FlattenedOptions {
         itemList.add(new FlatOptionsItem(new CollectionObjectItem(type, parameterType)));
     }
 
-    public void addObservable(Type type, Type parameterType) {
-        itemList.add(new FlatOptionsItem(new ObservableObjectItem(type, parameterType)));
+    public void addObservable(Method m, Type type, Type parameterType, List<ObservableOption> observableOptions) {
+        itemList.add(new FlatOptionsItem(new ObservableObjectItem(m, type, parameterType, observableOptions)));
     }
 
 
@@ -130,10 +134,10 @@ public class FlattenedOptions {
         public Method method;
         public Field field;
         public Type type;
-        public List<Object> fieldOptions;
+        public List<MethodFieldOption> fieldOptions;
 
         //any reason options aren't just created here?
-        public MethodFieldItem(Method m, Field f,Type t, List<Object> options) {
+        public MethodFieldItem(Method m, Field f,Type t, List<MethodFieldOption> options) {
             this.method = m;
             this.field = f;
             this.type = t;
@@ -147,10 +151,6 @@ public class FlattenedOptions {
             } else {
                 return "        " + clazz.getSimpleName() + " no field name";
             }
-        }
-
-        public Pair<Method, Field> getPair() {
-            return new Pair<Method, Field>(method, field);
         }
     }
 
@@ -184,12 +184,16 @@ public class FlattenedOptions {
 
     //represents a collection
     public class ObservableObjectItem {
+        public Method method;
         public Type clazz;
         public Type genericClass;
+        public List<ObservableOption> observableOptions;
 
-        public ObservableObjectItem(Type clazz, Type genericClass) {
+        public ObservableObjectItem(Method m, Type clazz, Type genericClass, List<ObservableOption> observableOptions) {
+            this.method = m;
             this.clazz = clazz;
             this.genericClass = genericClass;
+            this.observableOptions = observableOptions;
         }
 
         public String getString() {

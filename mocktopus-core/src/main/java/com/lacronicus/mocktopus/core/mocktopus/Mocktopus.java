@@ -1,10 +1,13 @@
 package com.lacronicus.mocktopus.core.mocktopus;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
+import android.os.Handler;
+import android.util.Pair;
 
-import java.lang.reflect.Proxy;
+import com.lacronicus.mocktopus.core.mocktopus.invocationhandler.MockInvocationHandler;
+import com.lacronicus.mocktopus.core.mocktopus.params.MocktopusParams;
+
 import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.Map;
@@ -22,6 +25,8 @@ public class Mocktopus {
 
     public Map<Type, MockInvocationHandler> handlers;
 
+    MocktopusParams params;
+
     private Mocktopus() {
         handlers = new HashMap<Type, MockInvocationHandler>();
         services = new HashMap<Type, Object>();
@@ -35,28 +40,32 @@ public class Mocktopus {
         return mocktopus;
     }
 
-    public <T> T initApi(Class<T> api) {
-
-        MockInvocationHandler handler = new MockInvocationHandler(api);
-        T service = (T) Proxy.newProxyInstance(
-                api.getClassLoader(),
-                new Class[]{api}, // is this right?
-                handler
-        );
-
-        services.put(api,service);
-        handlers.put(api, handler);
-        return service;
+    public void setGlobalParams(MocktopusParams params) {
+        //todo make sure this is done
     }
+
+
+
+    /*public <T> T initApi(Class<T> api) {
+        //Pair<T, MockInvocationHandler> pair = buildApi(api);
+        Pair<T, MockInvocationHandler> api = new ApiBuilder();
+        services.put(api,pair.first);
+        handlers.put(api,pair.second);
+        return pair.first;
+    }*/
+
+    public <T> T addApi(Class<T> apiClass, Pair<T, MockInvocationHandler> apiToAdd) {
+        services.put(apiClass, apiToAdd.first);
+        handlers.put(apiClass, apiToAdd.second);
+        return apiToAdd.first;
+    }
+
 
 
     public MockInvocationHandler getHandler(Type apiType) {
         return handlers.get(apiType);
     }
 
-    public void addErrorState(String stateName, Class toReturn) {
-        //todo
-    }
 
     public int getApiCount() {
         return services.size();
@@ -72,11 +81,16 @@ public class Mocktopus {
         activity.startActivityForResult(i, CONFIG_REQUEST_CODE);
     }
 
-    public static void onActivityResult(Activity activity, int requestCode, int resultCode, Intent data) {
+    public static void onActivityResult(final Activity activity, int requestCode, int resultCode, Intent data) {
         switch (requestCode) {
             case CONFIG_REQUEST_CODE:
                 if (resultCode == Activity.RESULT_OK) {
-                    activity.recreate();
+                    new Handler().post(new Runnable() {//wait for lifecycle events to flush before recreating
+                        @Override
+                        public void run() {
+                            activity.recreate();
+                        }
+                    });
                 }
                 break;
         }

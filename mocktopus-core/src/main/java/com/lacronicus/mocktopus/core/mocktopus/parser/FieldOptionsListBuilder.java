@@ -1,9 +1,12 @@
 package com.lacronicus.mocktopus.core.mocktopus.parser;
-
-import com.lacronicus.mocktopus.core.mocktopus.annotation.string.StringDate;
-import com.lacronicus.mocktopus.core.mocktopus.annotation.string.StringFixed;
-import com.lacronicus.mocktopus.core.mocktopus.annotation.string.StringImageUrl;
-import com.lacronicus.mocktopus.core.mocktopus.annotation.string.StringWebpageUrl;
+import com.lacronicus.mocktopus.annotation.string.StringDate;
+import com.lacronicus.mocktopus.annotation.string.StringFixed;
+import com.lacronicus.mocktopus.annotation.string.StringImageUrl;
+import com.lacronicus.mocktopus.annotation.string.StringWebpageUrl;
+import com.lacronicus.mocktopus.core.mocktopus.options.MethodFieldOption;
+import com.lacronicus.mocktopus.core.mocktopus.options.observable.ObservableOption;
+import com.lacronicus.mocktopus.core.mocktopus.params.MocktopusParams;
+import com.lacronicus.mocktopus.core.mocktopus.params.MocktopusParamsBuilder;
 
 import java.lang.reflect.Field;
 import java.text.SimpleDateFormat;
@@ -22,100 +25,98 @@ import java.util.List;
  */
 public class FieldOptionsListBuilder {
 
-    public static List<Object> getOptionsForStringField(Field field) {
-        List<Object> returnList = new ArrayList<Object>();
+    MocktopusParams params;
 
+    public FieldOptionsListBuilder(MocktopusParams params) {
+        this.params = params;
+    }
+
+    private FieldOptionsListBuilder() {
+        this.params = new MocktopusParamsBuilder().defaultGlobalParams().build();
+    }
+
+    public List<ObservableOption> getObservableOptions() {
+        return params.getObservableOptions();
+    }
+
+    public List<MethodFieldOption> getStringOptions(Field field) {
+        List<MethodFieldOption> returnList = new ArrayList<MethodFieldOption>();
         //todo sane ordering of annotations? which ones are most important and should be default
-
         if(field != null) {
             if (field.isAnnotationPresent(StringFixed.class)) {
                 StringFixed fixed = field.getAnnotation(StringFixed.class);
-                returnList.add(fixed.value());
+                returnList.add(new MethodFieldOption(fixed.value()));
             }
             if (field.isAnnotationPresent(StringDate.class)) {
                 String formatString = field.getAnnotation(StringDate.class).value();
                 SimpleDateFormat format = new SimpleDateFormat(formatString);
                 String dateString = format.format(new Date());
-                returnList.add(dateString);
-
-
+                returnList.add(new MethodFieldOption(dateString));
             }
             if (field.isAnnotationPresent(StringImageUrl.class)) {
                 StringImageUrl fixed = field.getAnnotation(StringImageUrl.class);
-                returnList.add(fixed.value());
+                returnList.add(new MethodFieldOption(fixed.value()));
             }
-
             if (field.isAnnotationPresent(StringWebpageUrl.class)) {
                 StringWebpageUrl fixed = field.getAnnotation(StringWebpageUrl.class);
-                returnList.add(fixed.value());
+                returnList.add(new MethodFieldOption(fixed.value()));
             }
         }
-
-        returnList.add("Simple String");
-        returnList.add("multi\nline\nstring");
-        returnList.add("Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.");
-
-        returnList.add(null);
-
-
+        returnList.addAll(params.getOptionsForType(String.class));
+        returnList.add(MethodFieldOption.nullOption());
         return returnList;
     }
 
-    public static List<Object> getOptionsforIntegerField(Field field, boolean isObject) {
-        List<Object> returnList = new ArrayList<Object>();
-        returnList.add(1);
-        returnList.add(-1);
-        returnList.add(0);
+    public List<MethodFieldOption> getIntegerOptions(Field field, boolean isObject) {
+        List<MethodFieldOption> returnList = new ArrayList<MethodFieldOption>();
+        returnList.addAll(params.getOptionsForType(Integer.class));
         if (isObject)
-            returnList.add(null);
+            returnList.add(MethodFieldOption.nullOption());
         return returnList;
     }
 
-    public static List<Object> getOptionsforLongField(Field field, boolean isObject) {
-        List<Object> returnList = new ArrayList<Object>();
-        returnList.add(1L);
-        returnList.add(-1L);
-        returnList.add(0L);
+    public List<MethodFieldOption> getLongOptions(Field field, boolean isObject) {
+        List<MethodFieldOption> returnList = new ArrayList<MethodFieldOption>();
+        returnList.addAll(params.getOptionsForType(Long.class));
         if (isObject)
-            returnList.add(null);
+            returnList.add(MethodFieldOption.nullOption());
         return returnList;
     }
 
-    public static List<Object> getOptionsforDoubleField(Field field, boolean isObject) {
-        List<Object> returnList = new ArrayList<Object>();
-        returnList.add(1.0);
-        returnList.add(-1.0);
-        returnList.add(0);
+    public List<MethodFieldOption> getDoubleOptions(Field field, boolean isObject) {
+        List<MethodFieldOption> returnList = new ArrayList<MethodFieldOption>();
+        returnList.addAll(params.getOptionsForType(Double.class));
         if (isObject)
-            returnList.add(null);
+            returnList.add(MethodFieldOption.nullOption());
         return returnList;
     }
 
-    public static List<Object> getOptionsforFloatField(Field field, boolean isObject) {
-        List<Object> returnList = new ArrayList<Object>();
-        returnList.add(1f);
-        returnList.add(-1f);
-        returnList.add(0f);
+    public List<MethodFieldOption> getFloatOptions(Field field, boolean isObject) {
+        List<MethodFieldOption> returnList = new ArrayList<MethodFieldOption>();
+        returnList.addAll(params.getOptionsForType(Float.class));
         if (isObject)
-            returnList.add(null);
+            returnList.add(MethodFieldOption.nullOption());
         return returnList;
     }
 
-    public static List<Object> getOptionsforCharField(Field field, boolean isObject) {
-        List<Object> returnList = new ArrayList<Object>();
-        returnList.add('a');
-        returnList.add('\n');
+
+    public List<MethodFieldOption> getCharOptions(Field field, boolean isObject) {
+        List<MethodFieldOption> returnList = new ArrayList<MethodFieldOption>();
+        returnList.addAll(params.getOptionsForType(Character.class));
         if (isObject)
-            returnList.add(null);
+            returnList.add(MethodFieldOption.nullOption());
         return returnList;
     }
 
-    public static List<Object> getOptionsforBooleanField(Field field, boolean isObject) {
-        List<Object> returnList = new ArrayList<Object>();
-        returnList.add(true);
-        returnList.add(false);
+
+    public List<MethodFieldOption> getBooleanOptions(Field field, boolean isObject) {
+        List<MethodFieldOption> returnList = new ArrayList<MethodFieldOption>();
+        returnList.addAll(params.getOptionsForType(Boolean.class));
         if (isObject)
-            returnList.add(null);
+            returnList.add(MethodFieldOption.nullOption());
         return returnList;
     }
+
+
+
 }

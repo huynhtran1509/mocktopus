@@ -2,14 +2,17 @@ package com.lacronicus.mocktopus.mocktopusdriver.dagger;
 
 import android.app.Application;
 import android.content.Context;
+import android.util.Pair;
 
 import com.google.gson.Gson;
+import com.lacronicus.mocktopus.core.mocktopus.ApiBuilder;
+import com.lacronicus.mocktopus.core.mocktopus.Mocktopus;
+import com.lacronicus.mocktopus.core.mocktopus.invocationhandler.MockInvocationHandler;
+import com.lacronicus.mocktopus.core.mocktopus.params.MocktopusParams;
+import com.lacronicus.mocktopus.core.mocktopus.params.MocktopusParamsBuilder;
 import com.lacronicus.mocktopus.mocktopusdriver.MainActivity;
 import com.lacronicus.mocktopus.mocktopusdriver.MainApp;
 import com.lacronicus.mocktopus.mocktopusdriver.fakeservice.FakeService;
-import com.lacronicus.mocktopus.core.mocktopus.ConfigurationActivity;
-import com.lacronicus.mocktopus.core.mocktopus.MockInvocationHandler;
-import com.lacronicus.mocktopus.core.mocktopus.Mocktopus;
 import com.lacronicus.mocktopus.mocktopusdriver.redditservice.RedditService;
 
 import javax.inject.Singleton;
@@ -60,14 +63,24 @@ public class AppModule {
     @Provides
     @Singleton
     FakeService provideFakeService() {
-        return Mocktopus.getInstance().initApi(FakeService.class);
+        MocktopusParams params = new MocktopusParamsBuilder()
+                .defaultGlobalParams()
+                .addString("Custom Service String")
+                .build();
+
+        Pair<FakeService, MockInvocationHandler> pair =
+                new ApiBuilder()
+                        .withCustomParams(params)
+                        .buildApi(FakeService.class);
+        return Mocktopus.getInstance().addApi(FakeService.class, pair);
     }
 
 
     @Provides
     @Singleton
     RedditService provideRedditService() {
-        return Mocktopus.getInstance().initApi(RedditService.class);
+        Pair<RedditService, MockInvocationHandler> pair = new ApiBuilder().buildApi(RedditService.class);
+        return Mocktopus.getInstance().addApi(RedditService.class, pair);
     }
 
 }

@@ -1,8 +1,6 @@
 package com.lacronicus.mocktopus.core.mocktopus.options;
 
-import android.util.Pair;
-
-import com.lacronicus.mocktopus.core.mocktopus.FieldSettings;
+import com.lacronicus.mocktopus.core.mocktopus.Settings;
 import com.lacronicus.mocktopus.core.mocktopus.FlattenedOptions;
 import com.lacronicus.mocktopus.core.mocktopus.parser.FieldOptionsListBuilder;
 
@@ -14,47 +12,50 @@ import java.util.List;
 
 /**
  * Created by fdoyle on 7/25/14.
+ *
+ * "Leaf" as would exist in a tree
  */
 public class LeafOptionsNode implements IOptionsNode {
-    List<Object> options;
+    List<MethodFieldOption> options;
     Method method; // the method this OptionsNode is being created for
     Field field; // the field this is going into
     Type layerType; // the type of the thing this represents
 
 
     //field may, in very rare circumstances, be null"
-    public LeafOptionsNode(Method method, Field field, Type layerType, int depth) {
-        options = new ArrayList<Object>();
+    public LeafOptionsNode(FieldOptionsListBuilder optionsBuilder, Method method, Field field, Type layerType, int depth) {
+        options = new ArrayList<MethodFieldOption>();
         this.method = method;
         this.field = field;
         this.layerType = layerType;
 
+        //todo clean this up. could have one method that takes a class
         if (layerType.equals(String.class)) {
-            options = FieldOptionsListBuilder.getOptionsForStringField(field);
+            options = optionsBuilder.getStringOptions(field);
         } else if (layerType.equals(Integer.class)) {
-            options = FieldOptionsListBuilder.getOptionsforIntegerField(field, true);
+            options = optionsBuilder.getIntegerOptions(field, true);
         } else if (layerType.equals(int.class)) {
-            options = FieldOptionsListBuilder.getOptionsforIntegerField(field, false);
+            options = optionsBuilder.getIntegerOptions(field, false);
         } else if (layerType.equals(Long.class)) {
-            options = FieldOptionsListBuilder.getOptionsforLongField(field, true);
+            options = optionsBuilder.getLongOptions(field, true);
         } else if (layerType.equals(long.class)) {
-            options = FieldOptionsListBuilder.getOptionsforLongField(field, false);
+            options = optionsBuilder.getLongOptions(field, false);
         } else if (layerType.equals(Double.class)) {
-            options = FieldOptionsListBuilder.getOptionsforDoubleField(field, true);
+            options = optionsBuilder.getDoubleOptions(field, true);
         } else if (layerType.equals(double.class)) {
-            options = FieldOptionsListBuilder.getOptionsforDoubleField(field, false);
+            options = optionsBuilder.getDoubleOptions(field, false);
         } else if (layerType.equals(Float.class)) {
-            options = FieldOptionsListBuilder.getOptionsforFloatField(field, true);
+            options = optionsBuilder.getFloatOptions(field, true);
         } else if (layerType.equals(float.class)) {
-            options = FieldOptionsListBuilder.getOptionsforFloatField(field, false);
+            options = optionsBuilder.getFloatOptions(field, false);
         } else if (layerType.equals(Character.class)) {
-            options = FieldOptionsListBuilder.getOptionsforCharField(field, true);
+            options = optionsBuilder.getCharOptions(field, true);
         } else if (layerType.equals(char.class)) {
-            options = FieldOptionsListBuilder.getOptionsforCharField(field, false);
+            options = optionsBuilder.getCharOptions(field, false);
         } else if (layerType.equals(Boolean.class)) {
-            options = FieldOptionsListBuilder.getOptionsforBooleanField(field, true);
+            options = optionsBuilder.getBooleanOptions(field, true);
         } else if (layerType.equals(boolean.class)) {
-            options = FieldOptionsListBuilder.getOptionsforBooleanField(field, false);
+            options = optionsBuilder.getBooleanOptions(field, false);
         }
     }
 
@@ -64,7 +65,7 @@ public class LeafOptionsNode implements IOptionsNode {
     }
 
     @Override
-    public void addDefaultSettingsTo(FieldSettings toAdd) {
-        toAdd.put(new Pair<Method, Field>(method, field), options.get(0));
+    public void addDefaultSettingsTo(Settings toAdd) {
+        toAdd.put(method, field, options.get(0));
     }
 }

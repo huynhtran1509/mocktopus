@@ -1,7 +1,6 @@
 package com.lacronicus.mocktopus.mocktopusdriver;
 
 import android.app.Application;
-import android.util.Log;
 
 import com.lacronicus.mocktopus.mocktopusdriver.dagger.AppModule;
 import com.lacronicus.mocktopus.mocktopusdriver.dagger.IObjectGraph;
