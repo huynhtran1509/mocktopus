@@ -83,7 +83,7 @@ public class MocktopusParamsBuilder {
     public MocktopusParamsBuilder defaultGlobalParams() {
         //add observable options
         addObservableOption(new ImmediateObservable());
-        addObservableOption(new DelayedObservable());
+        addObservableOption(new DelayedObservable(2000));
         addObservableOption(new NeverObservable());
 
         //add strings
