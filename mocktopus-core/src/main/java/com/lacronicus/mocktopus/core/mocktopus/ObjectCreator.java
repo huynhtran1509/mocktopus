@@ -41,6 +41,7 @@ public class ObjectCreator {
             returnClass = (Class<?>) ((ParameterizedType) returnType).getRawType();
         } //is there ever going to be something else?
         try {
+            //todo have a list of recognized "complex" classes that can be filled in with specific values
             if (returnClass.equals(String.class) ||
                     returnClass.equals(Integer.class) ||
                     returnClass.equals(Long.class) ||
@@ -52,7 +53,6 @@ public class ObjectCreator {
                 return returnOption.getValue();
             } else if (Platform.HAS_RX_JAVA && Observable.class.isAssignableFrom(returnClass)) {
                 Type containedClass = ((ParameterizedType) returnType).getActualTypeArguments()[0];
-                //return Observable.from(createObject(containedClass, method, null, currentSettings));
                 return  currentSettings.getObservableOption(method).createObservableForObject(createObject(containedClass, method, null, currentSettings));
             } else if (Collection.class.isAssignableFrom(returnClass)) {
                 List<Object> collection = new ArrayList<Object>();
