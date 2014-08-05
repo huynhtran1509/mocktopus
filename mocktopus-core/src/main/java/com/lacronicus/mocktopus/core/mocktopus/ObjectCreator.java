@@ -27,9 +27,9 @@ public class ObjectCreator {
      * <p/>
      * this could use some love
      *
-     * @param returnType the type of the object being created
-     * @param method the method this object is being created as a return value for
-     * @param f the field the object is about to be put into, null if it's the top-level object
+     * @param returnType      the type of the object being created
+     * @param method          the method this object is being created as a return value for
+     * @param f               the field the object is about to be put into, null if it's the top-level object
      * @param currentSettings the settings object being used to create new methods
      */
     public Object createObject(Type returnType, Method method, Field f, Settings currentSettings) {
@@ -41,37 +41,18 @@ public class ObjectCreator {
             returnClass = (Class<?>) ((ParameterizedType) returnType).getRawType();
         } //is there ever going to be something else?
         try {
-            if (returnClass.equals(String.class)) {
+            if (returnClass.equals(String.class) ||
+                    returnClass.equals(Integer.class) ||
+                    returnClass.equals(Long.class) ||
+                    returnClass.equals(Float.class) ||
+                    returnClass.equals(Double.class) ||
+                    returnClass.equals(Character.class) ||
+                    returnClass.equals(Boolean.class)) {
                 MethodFieldOption returnOption = currentSettings.get(method, f);
-                log(returnOption.toString());
-                return returnOption.getValue();
-            } else if (returnClass.equals(Integer.class)) {
-                MethodFieldOption returnOption = currentSettings.get(method, f);
-                log(returnOption.toString());
-                return returnOption.getValue();
-            } else if (returnClass.equals(Long.class)) {
-                MethodFieldOption returnOption = currentSettings.get(method, f);
-                log(returnOption.toString());
-                return returnOption.getValue();
-            } else if (returnClass.equals(Float.class)) {
-                MethodFieldOption returnOption = currentSettings.get(method, f);
-                log(returnOption.toString());
-                return returnOption.getValue();
-            } else if (returnClass.equals(Double.class)) {
-                MethodFieldOption returnOption = currentSettings.get(method, f);
-                log(returnOption.toString());
-                return returnOption.getValue();
-            } else if (returnClass.equals(Character.class)) {
-                MethodFieldOption returnOption = currentSettings.get(method, f);
-                log(returnOption.toString());
-                return returnOption.getValue();
-            } else if (returnClass.equals(Boolean.class)) {
-                MethodFieldOption returnOption = currentSettings.get(method, f);
-                log(returnOption.toString());
                 return returnOption.getValue();
             } else if (Observable.class.isAssignableFrom(returnClass)) {
                 Type containedClass = ((ParameterizedType) returnType).getActualTypeArguments()[0];
-                return Observable.from(createObject(containedClass, method,null, currentSettings));
+                return Observable.from(createObject(containedClass, method, null, currentSettings));
 
                 //return Observable.from(createObject(containedClass, method, null, currentSettings)).delay(3000, TimeUnit.MILLISECONDS).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());//this delay thing can be flaky. seems to work with this particular setup though
             } else if (Collection.class.isAssignableFrom(returnClass)) {
@@ -85,14 +66,14 @@ public class ObjectCreator {
                     IListModder builder = builderAnnotation.value().newInstance();
                     int count = builder.getCount();
                     for (int i = 0; i != count; i++) {
-                        collection.add(createObject(containedType, method,f, currentSettings));
+                        collection.add(createObject(containedType, method, f, currentSettings));
                     }
                     builder.modifyList(collection);
                 } else {
 
-                    collection.add(createObject(containedType, method,f, currentSettings));
-                    collection.add(createObject(containedType, method,f, currentSettings));
-                    collection.add(createObject(containedType, method,f, currentSettings));
+                    collection.add(createObject(containedType, method, f, currentSettings));
+                    collection.add(createObject(containedType, method, f, currentSettings));
+                    collection.add(createObject(containedType, method, f, currentSettings));
                 }
 
                 return collection;
@@ -106,30 +87,24 @@ public class ObjectCreator {
                     //break up by primitives and objects, objects should have a single call to createObject
                     Field childField = childFields[i];
                     Class fieldType = childField.getType();
-                    if (fieldType.equals(String.class)) {
-                        childField.set(response, createObject(fieldType, method, childField, currentSettings));
-                    } else if (fieldType.equals(Integer.class)) {
+                    if (fieldType.equals(String.class) ||
+                            fieldType.equals(Integer.class) ||
+                            fieldType.equals(Long.class) ||
+                            fieldType.equals(Double.class) ||
+                            fieldType.equals(Float.class) ||
+                            fieldType.equals(Character.class) ||
+                            fieldType.equals(Boolean.class)) {
                         childField.set(response, createObject(fieldType, method, childField, currentSettings));
                     } else if (fieldType.equals(int.class)) {
                         childField.setInt(response, (Integer) currentSettings.get(method, childField).getValue());
-                    } else if (fieldType.equals(Long.class)) {
-                        childField.set(response,createObject(fieldType, method, childField, currentSettings));
                     } else if (fieldType.equals(long.class)) {
                         childField.setLong(response, (Long) currentSettings.get(method, childField).getValue());
-                    } else if (fieldType.equals(Double.class)) {
-                        childField.set(response, createObject(fieldType, method, childField, currentSettings));
                     } else if (fieldType.equals(double.class)) {
                         childField.setDouble(response, (Double) currentSettings.get(method, childField).getValue());
-                    } else if (fieldType.equals(Float.class)) {
-                        childField.set(response, createObject(fieldType, method, childField, currentSettings));
                     } else if (fieldType.equals(float.class)) {
                         childField.setFloat(response, (Float) currentSettings.get(method, childField).getValue());
-                    } else if (fieldType.equals(Character.class)) {
-                        childField.set(response, createObject(fieldType, method, childField, currentSettings));
                     } else if (fieldType.equals(char.class)) {
                         childField.setChar(response, (Character) currentSettings.get(method, childField).getValue());
-                    } else if (fieldType.equals(Boolean.class)) {
-                        childField.set(response, createObject(fieldType, method, childField, currentSettings));
                     } else if (fieldType.equals(boolean.class)) {
                         childField.setBoolean(response, (Boolean) currentSettings.get(method, childField).getValue());
                     } else { // best way to determine child classes? what if it contains an Activity for some awful reason?
