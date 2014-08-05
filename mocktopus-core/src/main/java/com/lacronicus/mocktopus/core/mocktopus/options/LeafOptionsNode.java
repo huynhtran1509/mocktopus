@@ -29,6 +29,7 @@ public class LeafOptionsNode implements IOptionsNode {
         this.field = field;
         this.layerType = layerType;
 
+        //todo clean this up. could have one method that takes a class
         if (layerType.equals(String.class)) {
             options = optionsBuilder.getStringOptions(field);
         } else if (layerType.equals(Integer.class)) {
