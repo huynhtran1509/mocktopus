@@ -47,6 +47,7 @@ public class ObservableOptionsNode implements IOptionsNode {
 
     public void addToFlattenedOptions(FlattenedOptions flattenedOptions) {
         flattenedOptions.addObservable(method, containerType, parameterType, options);
+        //todo
         childNode.addToFlattenedOptions(flattenedOptions);
     }
 

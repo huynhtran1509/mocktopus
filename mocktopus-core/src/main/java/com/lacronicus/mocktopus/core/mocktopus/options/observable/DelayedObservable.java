@@ -30,6 +30,6 @@ public class DelayedObservable implements ObservableOption {
 
     @Override
     public Observable createObservableForException(Exception error) {
-        return Observable.error(error).delay(millis, TimeUnit.MILLISECONDS).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
+        return Observable.error(error).delay(millis, TimeUnit.MILLISECONDS).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());//todo this doesn't work because onError doesn't wait for delay(). any fix?
     }
 }

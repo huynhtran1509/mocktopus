@@ -65,7 +65,7 @@ public class LeafOptionsNode implements IOptionsNode {
     }
 
     @Override
-    public void addDefaultSettingsTo(Settings toAdd) {
+    public void addDefaultSettingsTo(Settings toAdd)  {
         toAdd.put(method, field, options.get(0));
     }
 }
