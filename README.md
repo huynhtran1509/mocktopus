@@ -1,8 +1,13 @@
 mocktopus
 =========
 
-v 0.5
+v 0.6.0
 -----
+
+    compile 'com.lacronicus.mocktopus.annotation:mocktopus-annotation:0.6.0'
+    compile 'com.lacronicus.mocktopus:mocktopus-core:0.6.0'
+    
+(follow the patterns in the sample to get going)
 
 This thing is approaching usable. You can look at it now
 
